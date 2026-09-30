@@ -873,19 +873,30 @@
     .briefing-modal .modal-box{
       max-width:760px;
       max-height:90dvh;
-      overflow-y:auto;
+      overflow:hidden;
       overscroll-behavior:contain;
-      -webkit-overflow-scrolling:touch;
-      touch-action:pan-y;
+      display:flex;
+      flex-direction:column;
+      position:relative;
     }
 
     .briefing-modal .modal-close{
-      position:sticky;
-      top:0;
-      z-index:30;
-      display:block;
-      margin-left:auto;
-      margin-bottom:-38px;
+      position:absolute;
+      top:14px;
+      right:14px;
+      z-index:50;
+      margin:0;
+    }
+
+    .briefing-modal .briefing-form{
+      min-height:0;
+      overflow-y:auto;
+      overflow-x:hidden;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
+      padding-right:4px;
+      padding-bottom:2px;
     }
 
     .briefing-intro{
@@ -2497,9 +2508,9 @@
 
 
   let selectedBriefingType = '';
-  let lockedScrollY = 0;
   let bodyScrollLocked = false;
-  let previousBodyStyles = null;
+  let previousHtmlOverflow = '';
+  let previousBodyOverflow = '';
 
 
   function lockPageScroll(){
@@ -2508,24 +2519,14 @@
       return;
     }
 
-    lockedScrollY = window.scrollY || window.pageYOffset || 0;
-
-    previousBodyStyles = {
-      position: document.body.style.position,
-      top: document.body.style.top,
-      left: document.body.style.left,
-      right: document.body.style.right,
-      width: document.body.style.width
-    };
+    previousHtmlOverflow = document.documentElement.style.overflow;
+    previousBodyOverflow = document.body.style.overflow;
 
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
 
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${lockedScrollY}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
 
     bodyScrollLocked = true;
   }
@@ -2540,33 +2541,11 @@
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
 
-    const restoreY = lockedScrollY;
-    const styles = previousBodyStyles || {
-      position: '',
-      top: '',
-      left: '',
-      right: '',
-      width: ''
-    };
-
-    document.body.style.position = styles.position;
-    document.body.style.top = styles.top;
-    document.body.style.left = styles.left;
-    document.body.style.right = styles.right;
-    document.body.style.width = styles.width;
+    document.documentElement.style.overflow = previousHtmlOverflow;
+    document.body.style.overflow = previousBodyOverflow;
 
     bodyScrollLocked = false;
-    previousBodyStyles = null;
-
-    requestAnimationFrame(function(){
-      window.scrollTo(0, restoreY);
-
-      requestAnimationFrame(function(){
-        window.scrollTo(0, restoreY);
-      });
-    });
   }
-
 
   /* ABRIR BRIEFING A PARTIR DO MODELO */
 
@@ -2877,9 +2856,13 @@
 
   function closeBriefing(){
 
-    document
-      .getElementById('briefingModal')
-      .classList.remove('active');
+    const modal = document.getElementById('briefingModal');
+
+    if(!modal){
+      return;
+    }
+
+    modal.classList.remove('active');
 
     unlockPageScroll();
   }
