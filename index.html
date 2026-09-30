@@ -1040,6 +1040,79 @@
       }
     }
 
+
+
+    /* NOTIFICAÇÃO DE SUCESSO DO BRIEFING */
+    .nexa-success-toast{
+      position:fixed;
+      top:20px;
+      left:50%;
+      transform:translate(-50%, -24px);
+      width:min(92vw, 520px);
+      box-sizing:border-box;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      padding:14px 18px;
+      border:1px solid rgba(74, 222, 128, .38);
+      border-radius:14px;
+      background:rgba(20, 83, 45, .96);
+      color:#fff;
+      text-align:center;
+      font-size:15px;
+      line-height:1.45;
+      font-weight:600;
+      box-shadow:0 14px 35px rgba(0,0,0,.28);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      z-index:99999;
+      transition:opacity .28s ease, transform .28s ease, visibility .28s ease;
+    }
+
+    .nexa-success-toast.show{
+      opacity:1;
+      visibility:visible;
+      transform:translate(-50%, 0);
+    }
+
+    .nexa-success-toast .toast-icon{
+      flex:0 0 28px;
+      width:28px;
+      height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:#22c55e;
+      color:#052e16;
+      font-size:17px;
+      font-weight:800;
+    }
+
+    .nexa-success-toast .toast-text{
+      flex:1;
+      text-align:center;
+    }
+
+    @media (max-width:600px){
+      .nexa-success-toast{
+        top:14px;
+        width:calc(100vw - 28px);
+        padding:13px 14px;
+        gap:10px;
+        font-size:14px;
+      }
+
+      .nexa-success-toast .toast-icon{
+        flex-basis:26px;
+        width:26px;
+        height:26px;
+        font-size:16px;
+      }
+    }
+
   </style>
 </head>
 
@@ -2882,6 +2955,42 @@
   }
 
 
+
+
+  /* NOTIFICAÇÃO DE SUCESSO */
+
+  function showNexaSuccessToast(){
+
+    let toast = document.getElementById('nexaSuccessToast');
+
+    if(!toast){
+      toast = document.createElement('div');
+      toast.id = 'nexaSuccessToast';
+      toast.className = 'nexa-success-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.innerHTML = `
+        <span class="toast-icon" aria-hidden="true">✓</span>
+        <span class="toast-text">
+          Briefing enviado com sucesso!<br>
+          Recebemos suas informações e entraremos em contato em breve.
+        </span>
+      `;
+      document.body.appendChild(toast);
+    }
+
+    toast.classList.remove('show');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+
+    clearTimeout(window.nexaSuccessToastTimer);
+    window.nexaSuccessToastTimer = setTimeout(function(){
+      toast.classList.remove('show');
+    }, 4500);
+
+  }
+
+
   /* ENVIO DO BRIEFING — FORMINIT */
 
   const forminit = new Forminit();
@@ -2937,9 +3046,9 @@
         return;
       }
 
-      alert('Briefing enviado com sucesso! A NexaWeeb recebeu suas informações.');
       briefingForm.reset();
       closeBriefing();
+      showNexaSuccessToast();
 
     });
 
