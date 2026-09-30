@@ -879,6 +879,15 @@
       touch-action:pan-y;
     }
 
+    .briefing-modal .modal-close{
+      position:sticky;
+      top:0;
+      z-index:30;
+      display:block;
+      margin-left:auto;
+      margin-bottom:-38px;
+    }
+
     .briefing-intro{
       color:var(--muted);
       margin:8px 0 20px;
@@ -2160,19 +2169,11 @@
       <div id="specificBriefingFields"></div>
 
       <div class="briefing-note">
-        Esta é a estrutura inicial do briefing. Os campos específicos
-        de cada tipo de site serão adicionados nas próximas etapas.
+        Preencha as informações disponíveis. Os dados específicos
+        de cada tipo de site já estão organizados neste briefing.
       </div>
 
       <div class="briefing-actions">
-
-        <button
-          type="button"
-          class="btn btn-ghost"
-          onclick="closeBriefing()"
-        >
-          Voltar
-        </button>
 
         <button
           type="submit"
@@ -2498,6 +2499,7 @@
   let selectedBriefingType = '';
   let lockedScrollY = 0;
   let bodyScrollLocked = false;
+  let previousBodyStyles = null;
 
 
   function lockPageScroll(){
@@ -2507,6 +2509,14 @@
     }
 
     lockedScrollY = window.scrollY || window.pageYOffset || 0;
+
+    previousBodyStyles = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width
+    };
 
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
@@ -2530,15 +2540,31 @@
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
 
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
+    const restoreY = lockedScrollY;
+    const styles = previousBodyStyles || {
+      position: '',
+      top: '',
+      left: '',
+      right: '',
+      width: ''
+    };
 
-    window.scrollTo(0, lockedScrollY);
+    document.body.style.position = styles.position;
+    document.body.style.top = styles.top;
+    document.body.style.left = styles.left;
+    document.body.style.right = styles.right;
+    document.body.style.width = styles.width;
 
     bodyScrollLocked = false;
+    previousBodyStyles = null;
+
+    requestAnimationFrame(function(){
+      window.scrollTo(0, restoreY);
+
+      requestAnimationFrame(function(){
+        window.scrollTo(0, restoreY);
+      });
+    });
   }
 
 
