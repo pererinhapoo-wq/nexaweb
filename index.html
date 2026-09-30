@@ -861,6 +861,117 @@
         font-size:1.7rem;
       }
     }
+
+    /* BRIEFING DOS PROJETOS */
+
+    .briefing-modal .modal-box{
+      max-width:760px;
+    }
+
+    .briefing-intro{
+      color:var(--muted);
+      margin:8px 0 20px;
+      line-height:1.6;
+    }
+
+    .briefing-type{
+      display:inline-block;
+      margin-bottom:8px;
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .briefing-form{
+      display:grid;
+      gap:16px;
+    }
+
+    .briefing-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .briefing-field{
+      display:grid;
+      gap:7px;
+    }
+
+    .briefing-field.full{
+      grid-column:1 / -1;
+    }
+
+    .briefing-field label{
+      font-size:.9rem;
+      font-weight:700;
+    }
+
+    .briefing-field input,
+    .briefing-field textarea,
+    .briefing-field select{
+      width:100%;
+      box-sizing:border-box;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:12px;
+      background:rgba(255,255,255,.045);
+      color:var(--text);
+      padding:12px 13px;
+      font:inherit;
+      outline:none;
+    }
+
+    .briefing-field textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .briefing-field input:focus,
+    .briefing-field textarea:focus,
+    .briefing-field select:focus{
+      border-color:rgba(91,140,255,.65);
+      box-shadow:0 0 0 3px rgba(91,140,255,.10);
+    }
+
+    .briefing-note{
+      padding:13px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background:rgba(255,255,255,.025);
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.55;
+    }
+
+    .briefing-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:4px;
+    }
+
+    @media (max-width:700px){
+      .briefing-grid{
+        grid-template-columns:1fr;
+      }
+
+      .briefing-field.full{
+        grid-column:auto;
+      }
+
+      .briefing-actions{
+        flex-direction:column;
+      }
+
+      .briefing-actions .btn{
+        width:100%;
+        justify-content:center;
+      }
+    }
+
   </style>
 </head>
 
@@ -1850,15 +1961,179 @@
 
     <div class="modal-action">
 
-      <a
-        href="#contato"
+      <button
+        type="button"
         class="btn btn-primary"
-        onclick="closeType()"
+        id="typeBriefingButton"
+        onclick="openBriefingFromType()"
       >
-        Solicitar orçamento
-      </a>
+        Quero este tipo de site
+      </button>
 
     </div>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL DOS BRIEFINGS -->
+
+<div
+  class="modal briefing-modal"
+  id="briefingModal"
+  onclick="closeBriefingOutside(event)"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      onclick="closeBriefing()"
+      aria-label="Fechar"
+    >
+      ×
+    </button>
+
+    <div
+      class="briefing-type"
+      id="briefingCategory"
+    >
+    </div>
+
+    <h2 id="briefingTitle">
+      Briefing do projeto
+    </h2>
+
+    <p
+      class="briefing-intro"
+      id="briefingDescription"
+    >
+      Preencha as informações iniciais do seu projeto.
+    </p>
+
+    <form
+      class="briefing-form"
+      id="briefingForm"
+      onsubmit="submitBriefing(event)"
+    >
+
+      <input
+        type="hidden"
+        id="briefingType"
+        name="tipo"
+      >
+
+      <div class="briefing-grid">
+
+        <div class="briefing-field">
+          <label for="briefingName">
+            Nome do negócio/projeto
+          </label>
+
+          <input
+            id="briefingName"
+            name="nome"
+            type="text"
+            autocomplete="organization"
+            required
+          >
+        </div>
+
+        <div class="briefing-field">
+          <label for="briefingResponsible">
+            Responsável
+          </label>
+
+          <input
+            id="briefingResponsible"
+            name="responsavel"
+            type="text"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+        <div class="briefing-field">
+          <label for="briefingPhone">
+            Telefone
+          </label>
+
+          <input
+            id="briefingPhone"
+            name="telefone"
+            type="tel"
+            autocomplete="tel"
+            required
+          >
+        </div>
+
+        <div class="briefing-field">
+          <label for="briefingEmail">
+            E-mail
+          </label>
+
+          <input
+            id="briefingEmail"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="briefing-field full">
+          <label for="briefingInstagram">
+            Instagram ou outra rede social
+          </label>
+
+          <input
+            id="briefingInstagram"
+            name="instagram"
+            type="text"
+            placeholder="@seunegocio ou link"
+          >
+        </div>
+
+        <div class="briefing-field full">
+          <label for="briefingInfo">
+            Informações iniciais do projeto
+          </label>
+
+          <textarea
+            id="briefingInfo"
+            name="informacoes"
+            placeholder="Conte brevemente o que você gostaria que o site tivesse."
+          ></textarea>
+        </div>
+
+      </div>
+
+      <div class="briefing-note">
+        Esta é a estrutura inicial do briefing. Os campos específicos
+        de cada tipo de site serão adicionados nas próximas etapas.
+      </div>
+
+      <div class="briefing-actions">
+
+        <button
+          type="button"
+          class="btn btn-ghost"
+          onclick="closeBriefing()"
+        >
+          Voltar
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+        >
+          Continuar briefing
+        </button>
+
+      </div>
+
+    </form>
 
   </div>
 
@@ -2103,6 +2378,174 @@
   };
 
 
+  /* ESTRUTURA DOS BRIEFINGS */
+
+  const briefingData = {
+
+    barbearia: {
+      category: '01 · NEGÓCIOS',
+      title: 'Briefing · Barbearia',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua barbearia.'
+    },
+
+    restaurante: {
+      category: '02 · ALIMENTAÇÃO',
+      title: 'Briefing · Restaurante',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico do seu restaurante.'
+    },
+
+    salao: {
+      category: '03 · BELEZA',
+      title: 'Briefing · Salão de beleza',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico do seu salão.'
+    },
+
+    academia: {
+      category: '04 · FITNESS',
+      title: 'Briefing · Academia',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua academia.'
+    },
+
+    clinica: {
+      category: '05 · SAÚDE',
+      title: 'Briefing · Clínica',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua clínica.'
+    },
+
+    loja: {
+      category: '06 · COMÉRCIO',
+      title: 'Briefing · Loja',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua loja.'
+    },
+
+    imobiliaria: {
+      category: '07 · IMÓVEIS',
+      title: 'Briefing · Imobiliária',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua imobiliária.'
+    },
+
+    prestador: {
+      category: '08 · SERVIÇOS',
+      title: 'Briefing · Prestador de serviços',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico do seu serviço.'
+    },
+
+    portfolio: {
+      category: '09 · PROFISSIONAL',
+      title: 'Briefing · Portfólio profissional',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico do seu portfólio.'
+    },
+
+    landing: {
+      category: '10 · CAMPANHAS',
+      title: 'Briefing · Landing page',
+      description: 'Vamos reunir as informações necessárias para preparar o briefing específico da sua landing page.'
+    }
+
+  };
+
+
+  let selectedBriefingType = '';
+
+
+  /* ABRIR BRIEFING A PARTIR DO MODELO */
+
+  function openBriefingFromType(){
+
+    const type = selectedBriefingType;
+
+    if(!type || !briefingData[type]){
+      return;
+    }
+
+    closeType();
+    openBriefing(type);
+  }
+
+
+  /* ABRIR BRIEFING */
+
+  function openBriefing(type){
+
+    const data = briefingData[type];
+
+    if(!data){
+      return;
+    }
+
+    selectedBriefingType = type;
+
+    document.getElementById('briefingType').value = type;
+
+    document.getElementById('briefingCategory').textContent =
+      data.category;
+
+    document.getElementById('briefingTitle').textContent =
+      data.title;
+
+    document.getElementById('briefingDescription').textContent =
+      data.description;
+
+    document
+      .getElementById('briefingModal')
+      .classList.add('active');
+
+    document.body.style.overflow = 'hidden';
+
+    const firstField =
+      document.getElementById('briefingName');
+
+    if(firstField){
+      setTimeout(function(){
+        firstField.focus();
+      }, 50);
+    }
+
+  }
+
+
+  /* FECHAR BRIEFING */
+
+  function closeBriefing(){
+
+    document
+      .getElementById('briefingModal')
+      .classList.remove('active');
+
+    document.body.style.overflow = '';
+  }
+
+
+  /* FECHAR BRIEFING CLICANDO FORA */
+
+  function closeBriefingOutside(event){
+
+    if(event.target.id === 'briefingModal'){
+      closeBriefing();
+    }
+
+  }
+
+
+  /* RECEBER O PRIMEIRO PASSO DO BRIEFING */
+
+  function submitBriefing(event){
+
+    event.preventDefault();
+
+    /*
+      Nesta primeira etapa não enviamos dados para nenhum serviço.
+      O formulário apenas valida e confirma a estrutura.
+    */
+
+    alert(
+      'Estrutura do briefing funcionando. ' +
+      'Os campos específicos deste tipo de site serão adicionados na próxima etapa.'
+    );
+
+  }
+
+
   /* ABRIR MODELO */
 
   function openType(type){
@@ -2112,6 +2555,8 @@
     if(!data){
       return;
     }
+
+    selectedBriefingType = type;
 
     document.getElementById('modalCategory').textContent =
       data.category;
@@ -2173,6 +2618,7 @@
   document.addEventListener('keydown', function(event){
 
     if(event.key === 'Escape'){
+      closeBriefing();
       closeType();
     }
 
