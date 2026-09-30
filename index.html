@@ -530,6 +530,12 @@
 
     /* MODAL DOS TIPOS */
 
+    html.modal-open,
+    body.modal-open{
+      overflow:hidden;
+      overscroll-behavior:none;
+    }
+
     .modal{
       position:fixed;
       inset:0;
@@ -866,6 +872,11 @@
 
     .briefing-modal .modal-box{
       max-width:760px;
+      max-height:90dvh;
+      overflow-y:auto;
+      overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;
+      touch-action:pan-y;
     }
 
     .briefing-intro{
@@ -2485,6 +2496,50 @@
 
 
   let selectedBriefingType = '';
+  let lockedScrollY = 0;
+  let bodyScrollLocked = false;
+
+
+  function lockPageScroll(){
+
+    if(bodyScrollLocked){
+      return;
+    }
+
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+
+    bodyScrollLocked = true;
+  }
+
+
+  function unlockPageScroll(){
+
+    if(!bodyScrollLocked){
+      return;
+    }
+
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+
+    window.scrollTo(0, lockedScrollY);
+
+    bodyScrollLocked = false;
+  }
 
 
   /* ABRIR BRIEFING A PARTIR DO MODELO */
@@ -2497,7 +2552,7 @@
       return;
     }
 
-    closeType();
+    closeType(true);
     openBriefing(type);
   }
 
@@ -2514,118 +2569,240 @@
 
     container.innerHTML = '';
 
-    if(type === 'barbearia'){
+    const fields = {
 
+      restaurante: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações do restaurante</h3>
+          <p class="specific-briefing-subtitle">Detalhes que serão usados para montar o site do restaurante.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Descrição do restaurante</label><textarea name="descricao" placeholder="Conte sobre o restaurante, sua proposta e seu estilo."></textarea></div>
+            <div class="briefing-field full"><label>Cardápio</label><textarea name="cardapio" placeholder="Liste pratos, bebidas e categorias do cardápio."></textarea></div>
+            <div class="briefing-field"><label>Pratos e categorias</label><textarea name="pratos_categorias" placeholder="Ex.: entradas, massas, carnes, sobremesas..."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Informe os preços, se desejar."></textarea></div>
+            <div class="briefing-field full"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple><small>Fotos do ambiente, pratos e produtos.</small></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field"><label>Especialidades</label><textarea name="especialidades" placeholder="Quais são os destaques da casa?"></textarea></div>
+            <div class="briefing-field"><label>Formas de atendimento</label><textarea name="formas_atendimento" placeholder="Salão, retirada, delivery etc."></textarea></div>
+            <div class="briefing-field"><label>Delivery</label><textarea name="delivery" placeholder="Como funciona o delivery?"></textarea></div>
+            <div class="briefing-field"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Facebook, TikTok, Instagram etc."></textarea></div>
+            <div class="briefing-field full"><label>Localização</label><input name="link_localizacao" type="url" placeholder="Link do Google Maps, por exemplo."></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      salao: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações do salão</h3>
+          <p class="specific-briefing-subtitle">Detalhes dos serviços, equipe e identidade do salão.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Serviços</label><textarea name="servicos" placeholder="Liste os serviços oferecidos."></textarea></div>
+            <div class="briefing-field"><label>Cabelo</label><textarea name="cabelo" placeholder="Cortes, coloração, tratamentos etc."></textarea></div>
+            <div class="briefing-field"><label>Unhas</label><textarea name="unhas" placeholder="Manicure, pedicure, alongamentos etc."></textarea></div>
+            <div class="briefing-field"><label>Estética</label><textarea name="estetica" placeholder="Serviços de estética."></textarea></div>
+            <div class="briefing-field"><label>Procedimentos</label><textarea name="procedimentos" placeholder="Procedimentos oferecidos."></textarea></div>
+            <div class="briefing-field full"><label>Profissionais</label><textarea name="profissionais" placeholder="Nome e função dos profissionais."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Informe os preços, se desejar."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia o salão?"></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      academia: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações da academia</h3>
+          <p class="specific-briefing-subtitle">Detalhes da estrutura, modalidades e planos.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Modalidades</label><textarea name="modalidades" placeholder="Musculação, funcional, lutas, aulas etc."></textarea></div>
+            <div class="briefing-field"><label>Musculação</label><textarea name="musculacao" placeholder="Informações sobre musculação."></textarea></div>
+            <div class="briefing-field"><label>Aulas</label><textarea name="aulas" placeholder="Tipos e horários das aulas."></textarea></div>
+            <div class="briefing-field"><label>Treinos</label><textarea name="treinos" placeholder="Tipos de treino oferecidos."></textarea></div>
+            <div class="briefing-field"><label>Planos</label><textarea name="planos" placeholder="Planos disponíveis."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Valores dos planos, se desejar."></textarea></div>
+            <div class="briefing-field full"><label>Estrutura</label><textarea name="estrutura" placeholder="Descreva os espaços e equipamentos."></textarea></div>
+            <div class="briefing-field full"><label>Professores</label><textarea name="professores" placeholder="Equipe e especialidades."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia a academia?"></textarea></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      clinica: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações da clínica</h3>
+          <p class="specific-briefing-subtitle">Detalhes das especialidades, profissionais e serviços.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Especialidades</label><textarea name="especialidades" placeholder="Liste as especialidades da clínica."></textarea></div>
+            <div class="briefing-field full"><label>Profissionais</label><textarea name="profissionais" placeholder="Nome, especialidade e informações dos profissionais."></textarea></div>
+            <div class="briefing-field full"><label>Serviços</label><textarea name="servicos" placeholder="Liste os serviços oferecidos."></textarea></div>
+            <div class="briefing-field full"><label>Procedimentos</label><textarea name="procedimentos" placeholder="Liste os procedimentos."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Valores, quando aplicável."></textarea></div>
+            <div class="briefing-field"><label>Convênios</label><textarea name="convenios" placeholder="Informe os planos/convênios aceitos, se houver."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia a clínica?"></textarea></div>
+            <div class="briefing-field full"><label>Localização</label><input name="link_localizacao" type="url" placeholder="Link do Google Maps, por exemplo."></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      loja: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações da loja</h3>
+          <p class="specific-briefing-subtitle">Detalhes dos produtos, categorias e formas de venda.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Categorias</label><textarea name="categorias" placeholder="Liste as categorias de produtos."></textarea></div>
+            <div class="briefing-field full"><label>Produtos</label><textarea name="produtos" placeholder="Liste ou descreva os principais produtos."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Informe preços, se desejar."></textarea></div>
+            <div class="briefing-field"><label>Formas de pagamento</label><textarea name="pagamento" placeholder="Pix, cartão, dinheiro etc."></textarea></div>
+            <div class="briefing-field"><label>Delivery</label><textarea name="delivery" placeholder="Como funciona a entrega?"></textarea></div>
+            <div class="briefing-field"><label>Retirada</label><textarea name="retirada" placeholder="Existe retirada na loja?"></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia a loja?"></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      imobiliaria: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações da imobiliária</h3>
+          <p class="specific-briefing-subtitle">Detalhes dos imóveis, corretores e tipos de negócio.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Endereço da imobiliária."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Informe os dias e horários."></textarea></div>
+            <div class="briefing-field full"><label>Tipos de imóveis</label><textarea name="tipos_imoveis" placeholder="Casas, apartamentos, terrenos, comerciais etc."></textarea></div>
+            <div class="briefing-field"><label>Casas</label><textarea name="casas" placeholder="Informações sobre casas."></textarea></div>
+            <div class="briefing-field"><label>Apartamentos</label><textarea name="apartamentos" placeholder="Informações sobre apartamentos."></textarea></div>
+            <div class="briefing-field"><label>Terrenos</label><textarea name="terrenos" placeholder="Informações sobre terrenos."></textarea></div>
+            <div class="briefing-field"><label>Imóveis comerciais</label><textarea name="comerciais" placeholder="Informações sobre imóveis comerciais."></textarea></div>
+            <div class="briefing-field"><label>Venda</label><textarea name="venda" placeholder="Imóveis disponíveis para venda."></textarea></div>
+            <div class="briefing-field"><label>Aluguel</label><textarea name="aluguel" placeholder="Imóveis disponíveis para aluguel."></textarea></div>
+            <div class="briefing-field"><label>Valores</label><textarea name="valores" placeholder="Faixas ou valores dos imóveis."></textarea></div>
+            <div class="briefing-field"><label>Localização</label><textarea name="localizacao" placeholder="Cidades, bairros ou regiões atendidas."></textarea></div>
+            <div class="briefing-field full"><label>Fotos e características dos imóveis</label><textarea name="fotos_caracteristicas" placeholder="Descreva as características e informe como pretende enviar as fotos."></textarea></div>
+            <div class="briefing-field full"><label>Corretores</label><textarea name="corretores" placeholder="Nome e informações dos corretores."></textarea></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      prestador: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações do prestador de serviços</h3>
+          <p class="specific-briefing-subtitle">Detalhes dos serviços, área de atendimento e trabalhos realizados.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Cidade/região</label><input name="cidade_regiao" type="text" placeholder="Cidade, bairros ou região atendida."></div>
+            <div class="briefing-field full"><label>Serviços</label><textarea name="servicos" placeholder="Liste os serviços oferecidos."></textarea></div>
+            <div class="briefing-field full"><label>Especialidades</label><textarea name="especialidades" placeholder="Quais são suas principais especialidades?"></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Informe preços, se desejar."></textarea></div>
+            <div class="briefing-field"><label>Área de serviço</label><textarea name="area_servico" placeholder="Onde você atende?"></textarea></div>
+            <div class="briefing-field full"><label>Projetos concluídos</label><textarea name="projetos" placeholder="Descreva trabalhos ou projetos realizados."></textarea></div>
+            <div class="briefing-field full"><label>Depoimentos</label><textarea name="depoimentos" placeholder="Depoimentos de clientes, se tiver."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia seu serviço?"></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      portfolio: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações do portfólio profissional</h3>
+          <p class="specific-briefing-subtitle">Detalhes da carreira, projetos e identidade profissional.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field"><label>Profissão</label><input name="profissao" type="text" placeholder="Sua profissão."></div>
+            <div class="briefing-field"><label>Especialidade</label><input name="especialidade" type="text" placeholder="Sua principal especialidade."></div>
+            <div class="briefing-field full"><label>Descrição profissional</label><textarea name="descricao_profissional" placeholder="Apresente sua atuação profissional."></textarea></div>
+            <div class="briefing-field full"><label>Experiência</label><textarea name="experiencia" placeholder="Experiências profissionais."></textarea></div>
+            <div class="briefing-field full"><label>Educação</label><textarea name="educacao" placeholder="Formação acadêmica e cursos."></textarea></div>
+            <div class="briefing-field full"><label>Projetos e trabalhos</label><textarea name="projetos_trabalhos" placeholder="Liste os principais projetos e trabalhos."></textarea></div>
+            <div class="briefing-field full"><label>Habilidades</label><textarea name="habilidades" placeholder="Principais habilidades."></textarea></div>
+            <div class="briefing-field full"><label>Serviços</label><textarea name="servicos" placeholder="Serviços que você oferece."></textarea></div>
+            <div class="briefing-field full"><label>Clientes</label><textarea name="clientes" placeholder="Clientes ou marcas que podem ser apresentados."></textarea></div>
+            <div class="briefing-field full"><label>Depoimentos</label><textarea name="depoimentos" placeholder="Depoimentos, se tiver."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo/marca pessoal</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Vídeos ou materiais</label><textarea name="videos_materiais" placeholder="Links de vídeos, Behance, Dribbble, YouTube ou outros materiais."></textarea></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`,
+
+      landing: `
+        <div class="specific-briefing">
+          <h3 class="specific-briefing-title">Informações da landing page</h3>
+          <p class="specific-briefing-subtitle">Estrutura inicial para projetos de página focada em uma oferta.</p>
+          <div class="briefing-grid">
+            <div class="briefing-field full"><label>Produto/serviço</label><input name="produto_servico" type="text" placeholder="Nome do produto ou serviço."></div>
+            <div class="briefing-field full"><label>Empresa</label><input name="empresa" type="text" placeholder="Nome da empresa ou marca."></div>
+            <div class="briefing-field full"><label>Oferta</label><textarea name="oferta" placeholder="Qual é a oferta principal da página?"></textarea></div>
+            <div class="briefing-field full"><label>Público-alvo</label><textarea name="publico_alvo" placeholder="Para quem é a oferta?"></textarea></div>
+            <div class="briefing-field full"><label>Benefícios</label><textarea name="beneficios" placeholder="Principais benefícios."></textarea></div>
+            <div class="briefing-field full"><label>Características</label><textarea name="caracteristicas" placeholder="Principais características do produto/serviço."></textarea></div>
+            <div class="briefing-field"><label>Preço</label><input name="preco" type="text" placeholder="Preço, se aplicável."></div>
+            <div class="briefing-field"><label>Contato</label><input name="contato" type="text" placeholder="Como o visitante deve entrar em contato?"></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Vídeos</label><textarea name="videos" placeholder="Links de vídeos, se houver."></textarea></div>
+            <div class="briefing-field full"><label>Depoimentos</label><textarea name="depoimentos" placeholder="Depoimentos de clientes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia a oferta?"></textarea></div>
+            <div class="briefing-field full"><label>CTA principal</label><input name="cta" type="text" placeholder="Ex.: Quero solicitar meu orçamento"></div>
+            <div class="briefing-field full"><label>Redes sociais</label><textarea name="redes_sociais" placeholder="Instagram e outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Informações adicionais</label><textarea name="outras_informacoes" placeholder="Alguma informação importante?"></textarea></div>
+          </div>
+        </div>`
+    };
+
+    if(type === 'barbearia'){
       container.innerHTML = `
         <div class="specific-briefing">
-
-          <h3 class="specific-briefing-title">
-            Informações da barbearia
-          </h3>
-
-          <p class="specific-briefing-subtitle">
-            Agora vamos reunir os detalhes que serão usados para montar o site da sua barbearia.
-          </p>
-
+          <h3 class="specific-briefing-title">Informações da barbearia</h3>
+          <p class="specific-briefing-subtitle">Agora vamos reunir os detalhes que serão usados para montar o site da sua barbearia.</p>
           <div class="briefing-grid">
-
-            <div class="briefing-field full">
-              <label for="barbeariaEndereco">Endereço</label>
-              <input id="barbeariaEndereco" name="endereco" type="text"
-                placeholder="Rua, número, bairro, cidade...">
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaHorario">Horário de funcionamento</label>
-              <textarea id="barbeariaHorario" name="horario_funcionamento"
-                placeholder="Ex.: Segunda a sexta: 09h às 19h. Sábado: 09h às 17h."></textarea>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaDescricao">Descrição da barbearia</label>
-              <textarea id="barbeariaDescricao" name="descricao"
-                placeholder="Conte um pouco sobre a barbearia, sua proposta e seu estilo."></textarea>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaServicos">Serviços</label>
-              <textarea id="barbeariaServicos" name="servicos"
-                placeholder="Liste os serviços oferecidos."></textarea>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaCortes">Cortes</label>
-              <textarea id="barbeariaCortes" name="cortes"
-                placeholder="Ex.: Corte tradicional, degradê, navalhado..."></textarea>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaBarba">Barba</label>
-              <textarea id="barbeariaBarba" name="barba"
-                placeholder="Tipos de serviço de barba."></textarea>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaCombos">Combos</label>
-              <textarea id="barbeariaCombos" name="combos"
-                placeholder="Ex.: Corte + barba."></textarea>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaPrecos">Preços</label>
-              <textarea id="barbeariaPrecos" name="precos"
-                placeholder="Informe os preços dos serviços, se desejar."></textarea>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaProfissionais">Barbeiros/profissionais</label>
-              <textarea id="barbeariaProfissionais" name="profissionais"
-                placeholder="Nome e função de cada profissional, se quiser apresentar a equipe."></textarea>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaFotos">Fotos</label>
-              <input id="barbeariaFotos" name="fotos" type="file" accept="image/*" multiple>
-              <small>Você poderá selecionar várias fotos da barbearia e dos trabalhos.</small>
-            </div>
-
-            <div class="briefing-field">
-              <label for="barbeariaLogo">Logo</label>
-              <input id="barbeariaLogo" name="logo" type="file" accept="image/*">
-              <small>Se tiver a logo em imagem, envie aqui.</small>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaRedes">Outras redes sociais</label>
-              <textarea id="barbeariaRedes" name="outras_redes"
-                placeholder="Facebook, TikTok, YouTube ou outras redes."></textarea>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaDiferenciais">Diferenciais</label>
-              <textarea id="barbeariaDiferenciais" name="diferenciais"
-                placeholder="O que diferencia sua barbearia das outras?"></textarea>
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaLocalizacao">Link da localização</label>
-              <input id="barbeariaLocalizacao" name="link_localizacao" type="url"
-                placeholder="Cole o link do Google Maps, por exemplo.">
-            </div>
-
-            <div class="briefing-field full">
-              <label for="barbeariaOutrasInfo">Outras informações</label>
-              <textarea id="barbeariaOutrasInfo" name="outras_informacoes"
-                placeholder="Alguma informação importante que ainda não foi perguntada?"></textarea>
-            </div>
-
+            <div class="briefing-field full"><label>Endereço</label><input name="endereco" type="text" placeholder="Rua, número, bairro, cidade..."></div>
+            <div class="briefing-field full"><label>Horário de funcionamento</label><textarea name="horario_funcionamento" placeholder="Ex.: Segunda a sexta: 09h às 19h. Sábado: 09h às 17h."></textarea></div>
+            <div class="briefing-field full"><label>Descrição da barbearia</label><textarea name="descricao" placeholder="Conte um pouco sobre a barbearia, sua proposta e seu estilo."></textarea></div>
+            <div class="briefing-field full"><label>Serviços</label><textarea name="servicos" placeholder="Liste os serviços oferecidos."></textarea></div>
+            <div class="briefing-field"><label>Cortes</label><textarea name="cortes" placeholder="Ex.: Corte tradicional, degradê, navalhado..."></textarea></div>
+            <div class="briefing-field"><label>Barba</label><textarea name="barba" placeholder="Tipos de serviço de barba."></textarea></div>
+            <div class="briefing-field"><label>Combos</label><textarea name="combos" placeholder="Ex.: Corte + barba."></textarea></div>
+            <div class="briefing-field"><label>Preços</label><textarea name="precos" placeholder="Informe os preços dos serviços, se desejar."></textarea></div>
+            <div class="briefing-field full"><label>Barbeiros/profissionais</label><textarea name="profissionais" placeholder="Nome e função de cada profissional."></textarea></div>
+            <div class="briefing-field"><label>Fotos</label><input name="fotos" type="file" accept="image/*" multiple></div>
+            <div class="briefing-field"><label>Logo</label><input name="logo" type="file" accept="image/*"></div>
+            <div class="briefing-field full"><label>Outras redes sociais</label><textarea name="outras_redes" placeholder="Facebook, TikTok, YouTube ou outras redes."></textarea></div>
+            <div class="briefing-field full"><label>Diferenciais</label><textarea name="diferenciais" placeholder="O que diferencia sua barbearia das outras?"></textarea></div>
+            <div class="briefing-field full"><label>Link da localização</label><input name="link_localizacao" type="url" placeholder="Cole o link do Google Maps, por exemplo."></div>
+            <div class="briefing-field full"><label>Outras informações</label><textarea name="outras_informacoes" placeholder="Alguma informação importante que ainda não foi perguntada?"></textarea></div>
           </div>
+        </div>`;
+      return;
+    }
 
-        </div>
-      `;
+    if(fields[type]){
+      container.innerHTML = fields[type];
     }
   }
-
 
   /* ABRIR BRIEFING */
 
@@ -2656,7 +2833,7 @@
       .getElementById('briefingModal')
       .classList.add('active');
 
-    document.body.style.overflow = 'hidden';
+    lockPageScroll();
 
     const firstField =
       document.getElementById('briefingName');
@@ -2678,7 +2855,7 @@
       .getElementById('briefingModal')
       .classList.remove('active');
 
-    document.body.style.overflow = '';
+    unlockPageScroll();
   }
 
 
@@ -2752,19 +2929,21 @@
       .getElementById('typeModal')
       .classList.add('active');
 
-    document.body.style.overflow = 'hidden';
+    lockPageScroll();
   }
 
 
   /* FECHAR MODELO */
 
-  function closeType(){
+  function closeType(keepPageLocked = false){
 
     document
       .getElementById('typeModal')
       .classList.remove('active');
 
-    document.body.style.overflow = '';
+    if(!keepPageLocked){
+      unlockPageScroll();
+    }
   }
 
 
@@ -2784,8 +2963,17 @@
   document.addEventListener('keydown', function(event){
 
     if(event.key === 'Escape'){
-      closeBriefing();
-      closeType();
+      const briefingIsOpen =
+        document.getElementById('briefingModal')?.classList.contains('active');
+
+      const typeIsOpen =
+        document.getElementById('typeModal')?.classList.contains('active');
+
+      if(briefingIsOpen){
+        closeBriefing();
+      }else if(typeIsOpen){
+        closeType();
+      }
     }
 
   });
