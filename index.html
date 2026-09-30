@@ -582,6 +582,34 @@
       margin-top:12px;
     }
 
+    .model-gallery{
+      display:none;
+      margin-top:24px;
+    }
+
+    .model-gallery.active{
+      display:block;
+    }
+
+    .model-gallery h4{
+      margin-bottom:12px;
+    }
+
+    .model-gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .model-gallery-grid img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      display:block;
+    }
+
     .modal-info{
       margin-top:24px;
       padding-top:22px;
@@ -839,7 +867,17 @@
         font-size:1.7rem;
       }
     }
-  </style>
+  
+    @media(max-width:600px){
+      .model-gallery-grid{
+        grid-template-columns:1fr;
+      }
+
+      .model-gallery-grid img{
+        height:210px;
+      }
+    }
+</style>
 </head>
 
 <body>
@@ -1814,6 +1852,11 @@
     <p id="modalDescription">
       Descrição do modelo.
     </p>
+
+    <div class="model-gallery" id="modelGallery">
+      <h4>Sites criados pela NexaWeb</h4>
+      <div class="model-gallery-grid" id="modelGalleryGrid"></div>
+    </div>
 
     <div class="modal-info">
 
