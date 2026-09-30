@@ -528,6 +528,93 @@
       transform:translateY(-1px);
     }
 
+
+    /* IMAGEM E PREÇOS DOS MODELOS */
+
+    .modal-demo-image{
+      margin-top:22px;
+      width:100%;
+      height:260px;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.035);
+    }
+
+    .modal-demo-image img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .modal-demo-fallback{
+      width:100%;
+      height:100%;
+      place-items:center;
+      text-align:center;
+      padding:25px;
+      color:var(--muted);
+      font-weight:700;
+      background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(139,92,246,.10));
+    }
+
+    .pricing-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .price-card{
+      min-width:0;
+      padding:17px 15px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+    }
+
+    .price-card h5{
+      font-size:.84rem;
+      margin-bottom:8px;
+    }
+
+    .price-value{
+      font-size:1.18rem;
+      font-weight:850;
+      line-height:1.2;
+      margin-bottom:9px;
+    }
+
+    .price-card p{
+      color:var(--muted);
+      font-size:.78rem;
+      line-height:1.5;
+      min-height:70px;
+    }
+
+    .price-time{
+      display:block;
+      margin-top:10px;
+      color:#8fc9ff;
+      font-size:.73rem;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    @media(max-width:700px){
+      .modal-demo-image{
+        height:210px;
+      }
+
+      .pricing-grid{
+        grid-template-columns:1fr;
+      }
+
+      .price-card p{
+        min-height:0;
+      }
+    }
+
     /* MODAL DOS TIPOS */
 
     html.modal-open,
@@ -2078,39 +2165,48 @@
     <div
       class="modal-category"
       id="modalCategory"
-    >
+    ></div>
+
+    <h2 id="modalTitle">Modelo</h2>
+
+    <p id="modalDescription">Descrição do modelo.</p>
+
+    <div class="modal-demo-image" id="modalDemoImage">
+      <img id="modalDemoImg" src="" alt="" loading="lazy">
+      <div class="modal-demo-fallback" id="modalDemoFallback" style="display:none"></div>
     </div>
 
-    <h2 id="modalTitle">
-      Modelo
-    </h2>
-
-    <p id="modalDescription">
-      Descrição do modelo.
-    </p>
+    <div class="modal-info">
+      <h4>Estrutura que pode fazer parte do site</h4>
+      <ul id="modalList"></ul>
+    </div>
 
     <div class="modal-info">
-
-      <h4>
-        Estrutura que pode fazer parte do site
-      </h4>
-
-      <ul id="modalList">
-      </ul>
-
+      <h4 class="pricing-title">Planos e preços</h4>
+      <div class="pricing-grid" id="modalPricing"></div>
     </div>
 
     <div class="modal-action">
+      <a
+        class="btn btn-ghost"
+        id="modalDemoButton"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="display:none"
+      >
+        Ver site completo ↗
+      </a>
 
       <button
         type="button"
         class="btn btn-primary"
         id="typeBriefingButton"
         onclick="openBriefingFromType()"
+        style="margin-top:10px;width:100%"
       >
         Quero este tipo de site
       </button>
-
     </div>
 
   </div>
@@ -2510,6 +2606,121 @@
         'Informações do produto ou serviço',
         'Chamada para ação',
         'Contato ou conversão'
+      ]
+    }
+
+  };
+
+
+  const pricingData = {
+
+    barbearia: {
+      image: 'https://img.decoracaosimples.com.br/2026/decoracao-barbearia-moderna-7.jpg',
+      imageAlt: 'Exemplo visual de uma barbearia moderna',
+      demoUrl: 'https://kings-barber-two.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 900', text:'Modelo adaptado, informações, serviços, equipe, horários, localização e contato.', time:'Prazo: 3–5 dias' },
+        { name:'Profissional', price:'R$ 1.500', text:'Tudo do Essencial + galeria, alterações de layout, seções extras, formulário e recursos especiais.', time:'Prazo: 5–7 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.500', text:'Estrutura sob medida, formulários personalizados e funções especiais.', time:'Prazo: 7+ dias' }
+      ]
+    },
+
+    restaurante: {
+      image: 'https://grok-workspace-puce.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo Sabor & Brasa',
+      demoUrl: 'https://grok-workspace-puce.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.000', text:'Modelo adaptado, informações, cardápio, localização, horários, contato e ambiente.', time:'Prazo: 3–5 dias' },
+        { name:'Profissional', price:'R$ 1.700', text:'Tudo do Essencial + galeria, ambiente em destaque, novas seções, cardápio ampliado e formulário.', time:'Prazo: 5–8 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.800', text:'Estrutura sob medida, cardápio personalizado, formulários e funções especiais.', time:'Prazo: conforme projeto' }
+      ]
+    },
+
+    salao: {
+      image: 'https://nexaweb-salao1.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo Ateliê Lumière',
+      demoUrl: 'https://nexaweb-salao1.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.000', text:'Modelo adaptado, informações, serviços, profissionais, contato, localização e horários.', time:'Prazo: 3–5 dias' },
+        { name:'Profissional', price:'R$ 1.700', text:'Tudo do Essencial + galeria, profissionais em destaque, novas seções, formulário e links personalizados.', time:'Prazo: 5–8 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.800', text:'Estrutura, galeria e formulários sob medida, com funções especiais.', time:'Prazo: conforme projeto' }
+      ]
+    },
+
+    academia: {
+      image: 'https://nexaweb-academia.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo KINETIK Training Club',
+      demoUrl: 'https://nexaweb-academia.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.200', text:'Modelo adaptado, modalidades, estrutura, planos, diferenciais, localização e contato.', time:'Prazo: 4–7 dias' },
+        { name:'Profissional', price:'R$ 2.000', text:'Tudo do Essencial + galeria, novas seções, alterações de layout, planos personalizados e formulário.', time:'Prazo: 7–10 dias' },
+        { name:'Personalizado', price:'A partir de R$ 3.000', text:'Estrutura sob medida, funções especiais, formulários e recursos específicos para alunos.', time:'Prazo: 10+ dias' }
+      ]
+    },
+
+    clinica: {
+      image: 'https://grok-workspace-1-three-alpha.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo Clínica Auren',
+      demoUrl: 'https://grok-workspace-1-three-alpha.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.200', text:'Informações da clínica, especialidades, profissionais, localização, contato e informações importantes.', time:'Prazo: 4–7 dias' },
+        { name:'Profissional', price:'R$ 2.000', text:'Tudo do Essencial + profissionais detalhados, galeria, novas seções, formulário e funções especiais.', time:'Prazo: 7–10 dias' },
+        { name:'Personalizado', price:'A partir de R$ 3.000', text:'Estrutura totalmente personalizada, formulários e recursos específicos para a clínica.', time:'Prazo: 10+ dias' }
+      ]
+    },
+
+    loja: {
+      image: 'https://nexaweb-loja.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo Nexa Store',
+      demoUrl: 'https://nexaweb-loja.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.300', text:'Informações da loja, produtos, catálogo, diferenciais, contato e publicação.', time:'Prazo: 5–7 dias' },
+        { name:'Profissional', price:'R$ 2.200', text:'Tudo do Essencial + catálogo ampliado, galeria, novas seções, destaques, formulário e funções especiais.', time:'Prazo: 7–14 dias' },
+        { name:'Personalizado', price:'A partir de R$ 3.500', text:'Estrutura sob medida, catálogo maior, formulários e recursos específicos para a loja.', time:'Prazo: 14+ dias' }
+      ]
+    },
+
+    imobiliaria: {
+      image: 'https://nexaweb-imobiliaria.vercel.app/images/hero.jpg',
+      imageAlt: 'Imagem do modelo VivaLar Imóveis',
+      demoUrl: 'https://nexaweb-imobiliaria.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.500', text:'Apresentação da imobiliária, imóveis, serviços, localização, contato e versão responsiva.', time:'Prazo: 7–10 dias' },
+        { name:'Profissional', price:'R$ 2.500', text:'Tudo do Essencial + catálogo ampliado, galeria, novas seções, organização e filtros de imóveis e formulário.', time:'Prazo: 10–20 dias' },
+        { name:'Personalizado', price:'A partir de R$ 4.000', text:'Estrutura sob medida, recursos avançados, filtros personalizados, formulários e integrações específicas.', time:'Prazo: 20+ dias' }
+      ]
+    },
+
+    prestador: {
+      image: 'https://nexaweb-prestador.vercel.app/images/hero-eletrica.jpg',
+      imageAlt: 'Imagem do modelo NOVA PRIME',
+      demoUrl: 'https://nexaweb-prestador.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 900', text:'Apresentação profissional, serviços, informações, diferenciais, contato e publicação.', time:'Prazo: 3–5 dias' },
+        { name:'Profissional', price:'R$ 1.500', text:'Tudo do Essencial + portfólio, galeria, novas seções, formulário, links e funções especiais.', time:'Prazo: 5–7 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.500', text:'Estrutura sob medida, portfólio personalizado, formulários e recursos específicos.', time:'Prazo: 7+ dias' }
+      ]
+    },
+
+    portfolio: {
+      image: 'https://nexaweb-portfolio-lake.vercel.app/images/portrait.jpg',
+      imageAlt: 'Imagem do modelo Rafael Monteiro',
+      demoUrl: 'https://nexaweb-portfolio-lake.vercel.app/',
+      plans: [
+        { name:'Essencial', price:'R$ 1.000', text:'Apresentação profissional, projetos, experiência, habilidades, trajetória e contato.', time:'Prazo: 3–5 dias' },
+        { name:'Profissional', price:'R$ 1.700', text:'Tudo do Essencial + galeria, apresentação detalhada, novas seções, destaques e formulário.', time:'Prazo: 5–8 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.800', text:'Estrutura e portfólio sob medida, formulários e recursos específicos para o profissional.', time:'Prazo: 8+ dias' }
+      ]
+    },
+
+    landing: {
+      image: '',
+      imageAlt: 'Ainda não há modelo demonstrativo de Landing Page',
+      demoUrl: '',
+      plans: [
+        { name:'Essencial', price:'R$ 900', text:'Apresentação da oferta, benefícios, chamada para ação, contato e versão responsiva.', time:'Prazo: 2–4 dias' },
+        { name:'Profissional', price:'R$ 1.500', text:'Tudo do Essencial + novas seções, destaques, formulário, links e funções especiais.', time:'Prazo: 4–7 dias' },
+        { name:'Personalizado', price:'A partir de R$ 2.500', text:'Estrutura sob medida, seções personalizadas, formulários e recursos específicos.', time:'Prazo: 7+ dias' }
       ]
     }
 
@@ -3060,8 +3271,9 @@
   function openType(type){
 
     const data = typeData[type];
+    const pricing = pricingData[type];
 
-    if(!data){
+    if(!data || !pricing){
       return;
     }
 
@@ -3076,20 +3288,70 @@
     document.getElementById('modalDescription').textContent =
       data.description;
 
-    const list =
-      document.getElementById('modalList');
-
+    const list = document.getElementById('modalList');
     list.innerHTML = '';
 
     data.items.forEach(function(item){
-
       const li = document.createElement('li');
-
       li.textContent = item;
-
       list.appendChild(li);
-
     });
+
+    const image = document.getElementById('modalDemoImg');
+    const fallback = document.getElementById('modalDemoFallback');
+    const imageBox = document.getElementById('modalDemoImage');
+
+    image.onload = function(){
+      image.style.display = 'block';
+      fallback.style.display = 'none';
+    };
+
+    image.onerror = function(){
+      image.style.display = 'none';
+      fallback.style.display = 'grid';
+    };
+
+    if(pricing.image){
+      image.src = pricing.image;
+      image.alt = pricing.imageAlt;
+      image.style.display = 'block';
+      fallback.style.display = 'none';
+      imageBox.style.display = 'block';
+    }else{
+      image.removeAttribute('src');
+      image.style.display = 'none';
+      fallback.textContent = pricing.imageAlt;
+      fallback.style.display = 'grid';
+      imageBox.style.display = 'block';
+    }
+
+    const pricingGrid = document.getElementById('modalPricing');
+    pricingGrid.innerHTML = '';
+
+    pricing.plans.forEach(function(plan){
+      const card = document.createElement('div');
+      card.className = 'price-card';
+      card.innerHTML =
+        '<h5></h5>' +
+        '<div class="price-value"></div>' +
+        '<p></p>' +
+        '<span class="price-time"></span>';
+      card.querySelector('h5').textContent = plan.name;
+      card.querySelector('.price-value').textContent = plan.price;
+      card.querySelector('p').textContent = plan.text;
+      card.querySelector('.price-time').textContent = plan.time;
+      pricingGrid.appendChild(card);
+    });
+
+    const demoButton = document.getElementById('modalDemoButton');
+
+    if(pricing.demoUrl){
+      demoButton.href = pricing.demoUrl;
+      demoButton.style.display = 'inline-flex';
+    }else{
+      demoButton.removeAttribute('href');
+      demoButton.style.display = 'none';
+    }
 
     document
       .getElementById('typeModal')
