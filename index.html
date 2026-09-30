@@ -2083,7 +2083,6 @@
     <form
       class="briefing-form"
       id="briefingForm"
-      action="https://formsubmit.co/nexaweeb@gmail.com"
       method="POST"
       enctype="multipart/form-data"
     >
@@ -2092,18 +2091,6 @@
         type="hidden"
         id="briefingType"
         name="tipo"
-      >
-
-      <input
-        type="hidden"
-        name="_subject"
-        value="Novo briefing recebido — NexaWeeb"
-      >
-
-      <input
-        type="hidden"
-        name="_template"
-        value="table"
       >
 
       <div class="briefing-grid">
@@ -2259,6 +2246,8 @@
 
 </footer>
 
+
+<script src="https://forminit.com/sdk/v1/forminit.js"></script>
 
 <script>
 
@@ -2893,13 +2882,68 @@
   }
 
 
-  /* ENVIO DO BRIEFING */
+  /* ENVIO DO BRIEFING — FORMINIT */
 
-  /*
-    O envio agora é feito diretamente pelo formulário para o FormSubmit.
-    Não interceptamos o submit com JavaScript para preservar o envio dos
-    arquivos usando multipart/form-data.
-  */
+  const forminit = new Forminit();
+  const FORMINIT_FORM_ID = 'mzismx0n5tn';
+
+  const briefingForm = document.getElementById('briefingForm');
+
+  if(briefingForm){
+
+    briefingForm.addEventListener('submit', async function(event){
+
+      event.preventDefault();
+
+      const submitButton = briefingForm.querySelector('button[type="submit"]');
+      const originalText = submitButton ? submitButton.textContent : '';
+
+      if(submitButton){
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
+      }
+
+      /*
+        O briefing já possui todos os campos e layouts prontos.
+        Aqui apenas adaptamos os nomes para o padrão fi-{tipo}-{nome}
+        exigido pelo Forminit, sem alterar o visual ou os campos.
+      */
+      const sourceData = new FormData(briefingForm);
+      const formData = new FormData();
+
+      for(const [key, value] of sourceData.entries()){
+
+        let blockType = 'text';
+
+        if(value instanceof File){
+          blockType = 'file';
+        }else if(key === 'email'){
+          formData.append('fi-sender-email', value);
+          continue;
+        }
+
+        formData.append('fi-' + blockType + '-' + key, value);
+      }
+
+      const { error } = await forminit.submit(FORMINIT_FORM_ID, formData);
+
+      if(submitButton){
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+
+      if(error){
+        alert('Não foi possível enviar o briefing. ' + error.message);
+        return;
+      }
+
+      alert('Briefing enviado com sucesso! A NexaWeeb recebeu suas informações.');
+      briefingForm.reset();
+      closeBriefing();
+
+    });
+
+  }
 
 
   /* ABRIR MODELO */
