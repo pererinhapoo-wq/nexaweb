@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="NexaWeb — Sites profissionais para o seu negócio. · Nova Home" />
-  <title>NexaWeb — Nova Home | Sites profissionais</title>
+
+  <meta
+    name="description"
+    content="NexaWeb — Sites profissionais para o seu negócio."
+  />
+
+  <title>NexaWeb — Sites profissionais para o seu negócio</title>
+
   <style>
     :root{
       --bg:#030712;
@@ -18,8 +24,17 @@
       --max:1180px;
       --radius:22px;
     }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
@@ -27,307 +42,1493 @@
         radial-gradient(circle at 10% 25%,rgba(120,82,255,.11),transparent 26%),
         radial-gradient(circle at 55% 48%,rgba(30,100,180,.06),transparent 34%),
         var(--bg);
-      color:var(--text);line-height:1.6;
+      color:var(--text);
+      line-height:1.6;
     }
-    a{text-decoration:none;color:inherit}
-    .container{width:min(var(--max),92%);margin:auto}
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:min(var(--max),92%);
+      margin:auto;
+    }
+
     header{
-      position:sticky;top:0;z-index:20;
+      position:sticky;
+      top:0;
+      z-index:20;
       backdrop-filter:blur(18px);
       background:rgba(7,16,31,.78);
       border-bottom:1px solid var(--line);
     }
-    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .logo{font-size:1.5rem;font-weight:800;letter-spacing:-.7px}
-    .logo span{color:var(--accent)}
-    nav{display:flex;align-items:center;gap:24px}
-    nav a{font-size:.92rem;color:var(--muted);transition:.2s}
-    nav a:hover{color:#fff}
+
+    .nav{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .logo{
+      font-size:1.5rem;
+      font-weight:800;
+      letter-spacing:-.7px;
+    }
+
+    .logo span{
+      color:var(--accent);
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:24px;
+    }
+
+    nav a{
+      font-size:.92rem;
+      color:var(--muted);
+      transition:.2s;
+    }
+
+    nav a:hover{
+      color:#fff;
+    }
+
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:13px 20px;border-radius:12px;font-weight:700;border:1px solid transparent;
-      transition:.2s;cursor:pointer
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 21px;
+      border-radius:13px;
+      font-weight:750;
+      border:1px solid transparent;
+      transition:transform .2s,box-shadow .2s,border-color .2s,background .2s;
+      cursor:pointer;
     }
-    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 12px 30px rgba(88,166,255,.18)}
-    .btn-primary:hover{transform:translateY(-2px)}
-    .btn-ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:#fff}
-    .menu{display:none;background:none;border:0;color:#fff;font-size:1.6rem}
-     .hero{
-      position:relative;padding:112px 0 96px;min-height:720px;
-      display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:72px;overflow:visible
-    }
-    .hero:before{
-      content:"";position:absolute;width:520px;height:520px;right:-150px;top:70px;
-      background:radial-gradient(circle,rgba(92,145,255,.16),transparent 68%);
-      filter:blur(10px);pointer-events:none
-    }
-    .eyebrow{
-      display:inline-flex;padding:8px 13px;border:1px solid rgba(103,183,255,.18);
-      border-radius:999px;color:#b9dcff;background:rgba(103,183,255,.07);
-      font-size:.78rem;font-weight:750;letter-spacing:.2px;margin-bottom:24px
-    }
-    h1{
-      font-size:clamp(3rem,6.2vw,5.45rem);line-height:.99;letter-spacing:-3.8px;
-      max-width:760px;text-wrap:balance
-    }
-    .hero h1{
-      background:linear-gradient(180deg,#fff 10%,#dce8f8 72%,#9db4d0);
-      -webkit-background-clip:text;background-clip:text;color:transparent
-    }
-    .hero p{font-size:1.08rem;color:var(--muted);max-width:600px;margin:26px 0 34px;line-height:1.75}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:14px 21px;border-radius:13px;font-weight:750;border:1px solid transparent;
-      transition:transform .2s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer
-    }
+
     .btn-primary{
-      background:linear-gradient(135deg,#65b7ff 0%,#735cff 100%);color:#fff;
-      box-shadow:0 14px 36px rgba(93,118,255,.22)
+      background:linear-gradient(135deg,#65b7ff 0%,#735cff 100%);
+      color:#fff;
+      box-shadow:0 14px 36px rgba(93,118,255,.22);
     }
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(93,118,255,.30)}
-    .btn-ghost{border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.035);color:#fff}
-    .btn-ghost:hover{border-color:rgba(103,183,255,.28);background:rgba(103,183,255,.06);transform:translateY(-2px)}
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 42px rgba(93,118,255,.30);
+    }
+
+    .btn-ghost{
+      border-color:rgba(255,255,255,.12);
+      background:rgba(255,255,255,.035);
+      color:#fff;
+    }
+
+    .btn-ghost:hover{
+      border-color:rgba(103,183,255,.28);
+      background:rgba(103,183,255,.06);
+      transform:translateY(-2px);
+    }
+
+    .menu{
+      display:none;
+      background:none;
+      border:0;
+      color:#fff;
+      font-size:1.6rem;
+    }
+
+    .hero{
+      position:relative;
+      padding:112px 0 96px;
+      min-height:720px;
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      align-items:center;
+      gap:72px;
+      overflow:visible;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      width:520px;
+      height:520px;
+      right:-150px;
+      top:70px;
+      background:radial-gradient(
+        circle,
+        rgba(92,145,255,.16),
+        transparent 68%
+      );
+      filter:blur(10px);
+      pointer-events:none;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      padding:8px 13px;
+      border:1px solid rgba(103,183,255,.18);
+      border-radius:999px;
+      color:#b9dcff;
+      background:rgba(103,183,255,.07);
+      font-size:.78rem;
+      font-weight:750;
+      letter-spacing:.2px;
+      margin-bottom:24px;
+    }
+
+    h1{
+      font-size:clamp(3rem,6.2vw,5.45rem);
+      line-height:.99;
+      letter-spacing:-3.8px;
+      max-width:760px;
+      text-wrap:balance;
+    }
+
+    .hero h1{
+      background:linear-gradient(
+        180deg,
+        #fff 10%,
+        #dce8f8 72%,
+        #9db4d0
+      );
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero p{
+      font-size:1.08rem;
+      color:var(--muted);
+      max-width:600px;
+      margin:26px 0 34px;
+      line-height:1.75;
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
     .mockup{
-      position:relative;padding:11px;border:1px solid rgba(255,255,255,.12);border-radius:30px;
-      background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.025));
-      box-shadow:0 36px 100px rgba(0,0,0,.48),0 0 80px rgba(88,145,255,.10);
-      transform:rotate(1.2deg);isolation:isolate
+      position:relative;
+      padding:11px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:30px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.10),
+          rgba(255,255,255,.025)
+        );
+      box-shadow:
+        0 36px 100px rgba(0,0,0,.48),
+        0 0 80px rgba(88,145,255,.10);
+      transform:rotate(1.2deg);
+      isolation:isolate;
     }
+
     .mockup:before{
-      content:"";position:absolute;inset:-1px;border-radius:30px;padding:1px;
-      background:linear-gradient(135deg,rgba(112,194,255,.35),transparent 42%,rgba(128,99,255,.22));
-      -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius:30px;
+      padding:1px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(112,194,255,.35),
+          transparent 42%,
+          rgba(128,99,255,.22)
+        );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      pointer-events:none;
     }
-    .browser{overflow:hidden;border-radius:21px;background:#f7f9fc;color:#101828}
-    .browser-top{height:38px;background:#e9eef5;display:flex;align-items:center;gap:6px;padding:0 14px}
-    .dot{width:8px;height:8px;border-radius:50%;background:#b7c1ce}
+
+    .browser{
+      overflow:hidden;
+      border-radius:21px;
+      background:#f7f9fc;
+      color:#101828;
+    }
+
+    .browser-top{
+      height:38px;
+      background:#e9eef5;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:0 14px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#b7c1ce;
+    }
+
     .site-preview{
-      position:relative;padding:31px;min-height:410px;overflow:hidden;
-      background:linear-gradient(145deg,#fff 0%,#f3f7fc 55%,#edf3ff 100%)
+      position:relative;
+      padding:31px;
+      min-height:410px;
+      overflow:hidden;
+      background:
+        linear-gradient(
+          145deg,
+          #fff 0%,
+          #f3f7fc 55%,
+          #edf3ff 100%
+        );
     }
+
     .site-preview:after{
-      content:"";position:absolute;width:260px;height:260px;right:-100px;bottom:-130px;
-      border-radius:50%;background:linear-gradient(135deg,rgba(103,183,255,.25),rgba(124,92,255,.20));filter:blur(4px)
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      right:-100px;
+      bottom:-130px;
+      border-radius:50%;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(103,183,255,.25),
+          rgba(124,92,255,.20)
+        );
+      filter:blur(4px);
     }
-    .preview-pill{font-size:10px;font-weight:850;letter-spacing:.7px;color:#3474bd}
-    .preview-title{font-size:36px;line-height:1.03;font-weight:850;letter-spacing:-1.6px;max-width:310px;margin-top:20px}
-    .preview-lines{display:grid;gap:8px;margin-top:18px}
-    .preview-line{height:8px;border-radius:20px;background:#d9e3ef;width:78%}
-    .preview-line.short{width:52%}
+
+    .preview-pill{
+      font-size:10px;
+      font-weight:850;
+      letter-spacing:.7px;
+      color:#3474bd;
+    }
+
+    .preview-title{
+      font-size:36px;
+      line-height:1.03;
+      font-weight:850;
+      letter-spacing:-1.6px;
+      max-width:310px;
+      margin-top:20px;
+    }
+
+    .preview-lines{
+      display:grid;
+      gap:8px;
+      margin-top:18px;
+    }
+
+    .preview-line{
+      height:8px;
+      border-radius:20px;
+      background:#d9e3ef;
+      width:78%;
+    }
+
+    .preview-line.short{
+      width:52%;
+    }
+
     .preview-card{
-      margin-top:28px;width:100%;height:96px;border-radius:16px;
-      background:linear-gradient(135deg,#cce6ff,#ddd4ff);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.7)
+      margin-top:28px;
+      width:100%;
+      height:96px;
+      border-radius:16px;
+      background:
+        linear-gradient(
+          135deg,
+          #cce6ff,
+          #ddd4ff
+        );
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.7);
     }
-    section{padding:96px 0;position:relative}
+
+    section{
+      padding:96px 0;
+      position:relative;
+    }
+
     section:not(:first-child):before{
-      content:"";position:absolute;top:0;left:50%;width:min(760px,80%);
-      height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      width:min(760px,80%);
+      height:1px;
+      transform:translateX(-50%);
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.07),
+          transparent
+        );
     }
-    .section-head{max-width:680px;margin-bottom:42px}
-    .section-head h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-1.5px}
-    .section-head p{color:var(--muted);margin-top:12px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+    .section-head{
+      max-width:680px;
+      margin-bottom:42px;
+    }
+
+    .section-head h2{
+      font-size:clamp(2rem,4vw,3rem);
+      letter-spacing:-1.5px;
+    }
+
+    .section-head p{
+      color:var(--muted);
+      margin-top:12px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
     .card{
-      padding:27px;border:1px solid var(--line);border-radius:var(--radius);
-      background:linear-gradient(145deg,rgba(17,32,56,.78),rgba(9,19,34,.58));
+      padding:27px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(17,32,56,.78),
+          rgba(9,19,34,.58)
+        );
       box-shadow:0 14px 40px rgba(0,0,0,.10);
-      transition:transform .2s,border-color .2s,box-shadow .2s
+      transition:
+        transform .2s,
+        border-color .2s,
+        box-shadow .2s;
     }
+
     .card:hover{
-      transform:translateY(-3px);border-color:rgba(103,183,255,.18);
-      box-shadow:0 18px 48px rgba(0,0,0,.18)
+      transform:translateY(-3px);
+      border-color:rgba(103,183,255,.18);
+      box-shadow:0 18px 48px rgba(0,0,0,.18);
     }
-    .card-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.18);margin-bottom:18px;font-weight:800;color:#8dc5ff}
-    .card h3{font-size:1.05rem;margin-bottom:8px}
-    .card p{color:var(--muted);font-size:.94rem}
-    .types{grid-template-columns:repeat(5,1fr)}
-    .type{min-height:125px;display:flex;flex-direction:column;justify-content:space-between}
-    .type small{color:#7fa9d7}
-    .demo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-    .demo-card{overflow:hidden;padding:0}
-    .demo-image{height:230px;background:linear-gradient(135deg,#151515,#2e2e2e);display:grid;place-items:center;font-size:2rem;font-weight:800;letter-spacing:-1px}
-    .demo-body{padding:24px}
-    .coming{background:rgba(255,255,255,.025);color:var(--muted)}
-    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-    .step-number{font-size:.8rem;color:#7fb9ff;font-weight:800;margin-bottom:18px}
-    .price{font-size:2rem;font-weight:850;margin:18px 0 5px}
-    .price span{font-size:.85rem;color:var(--muted);font-weight:500}
-    .featured{border-color:rgba(88,166,255,.4);box-shadow:0 15px 50px rgba(88,166,255,.08)}
-    .about{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch}
-    .about-box{padding:38px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.025)}
-    .about-box p{color:var(--muted);margin-top:14px}
-    .contact{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:46px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(120deg,rgba(88,166,255,.10),rgba(124,92,255,.08))}
-    footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted)}
-    .footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}
-    .footer-links{display:flex;gap:18px;font-size:.9rem}
+
+    .card-icon{
+      width:44px;
+      height:44px;
+      border-radius:13px;
+      display:grid;
+      place-items:center;
+      background:rgba(88,166,255,.1);
+      border:1px solid rgba(88,166,255,.18);
+      margin-bottom:18px;
+      font-weight:800;
+      color:#8dc5ff;
+    }
+
+    .card h3{
+      font-size:1.05rem;
+      margin-bottom:8px;
+    }
+
+    .card p{
+      color:var(--muted);
+      font-size:.94rem;
+    }
+
+    /* TIPOS DE SITES */
+
+    .types{
+      grid-template-columns:repeat(5,1fr);
+    }
+
+    .type{
+      min-height:170px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .type-number{
+      font-size:.75rem;
+      color:#7fb9ff;
+      font-weight:800;
+      letter-spacing:.5px;
+      margin-bottom:14px;
+    }
+
+    .type h3{
+      font-size:1.08rem;
+      margin-bottom:9px;
+    }
+
+    .type p{
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.55;
+    }
+
+    .type small{
+      display:block;
+      margin-top:18px;
+      color:#7fa9d7;
+      font-size:.78rem;
+    }
+
+    .demo{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .demo-card{
+      overflow:hidden;
+      padding:0;
+    }
+
+    .demo-image{
+      height:230px;
+      background:
+        linear-gradient(
+          135deg,
+          #151515,
+          #2e2e2e
+        );
+      display:grid;
+      place-items:center;
+      font-size:2rem;
+      font-weight:800;
+      letter-spacing:-1px;
+    }
+
+    .demo-body{
+      padding:24px;
+    }
+
+    .coming{
+      background:rgba(255,255,255,.025);
+      color:var(--muted);
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:14px;
+    }
+
+    .step-number{
+      font-size:.8rem;
+      color:#7fb9ff;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    .price{
+      font-size:2rem;
+      font-weight:850;
+      margin:18px 0 5px;
+    }
+
+    .price span{
+      font-size:.85rem;
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    .featured{
+      border-color:rgba(88,166,255,.4);
+      box-shadow:0 15px 50px rgba(88,166,255,.08);
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      align-items:stretch;
+    }
+
+    .about-box{
+      padding:38px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.025);
+    }
+
+    .about-box p{
+      color:var(--muted);
+      margin-top:14px;
+    }
+
+    .contact{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:30px;
+      padding:46px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        linear-gradient(
+          120deg,
+          rgba(88,166,255,.10),
+          rgba(124,92,255,.08)
+        );
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:34px 0;
+      color:var(--muted);
+    }
+
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      font-size:.9rem;
+    }
+
     @media(max-width:950px){
-      nav{display:none}.menu{display:block}
-      .hero{grid-template-columns:1fr;padding-top:70px}
-      .mockup{max-width:620px;margin:auto}
-      .grid,.types{grid-template-columns:repeat(2,1fr)}
-      .steps{grid-template-columns:repeat(2,1fr)}
-      .about,.demo{grid-template-columns:1fr}
+
+      nav{
+        display:none;
+      }
+
+      .menu{
+        display:block;
+      }
+
+      .hero{
+        grid-template-columns:1fr;
+        padding-top:70px;
+      }
+
+      .mockup{
+        max-width:620px;
+        margin:auto;
+      }
+
+      .grid,
+      .types{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .steps{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .about,
+      .demo{
+        grid-template-columns:1fr;
+      }
     }
+
     @media(max-width:600px){
-      .nav{height:68px}.hero{min-height:auto;padding:72px 0 68px;gap:48px}
-      h1{font-size:clamp(2.65rem,12vw,3.5rem);letter-spacing:-2.7px}.hero p{font-size:1rem;line-height:1.7}
-      section{padding:70px 0}
-      .grid,.types,.steps{grid-template-columns:1fr}
-      .contact{padding:28px;display:block}
-      .contact .btn{margin-top:22px}
-      .footer-row{display:block}.footer-links{margin-top:14px;flex-wrap:wrap}
-      .site-preview{min-height:330px;padding:26px}.preview-title{font-size:31px}
+
+      .nav{
+        height:68px;
+      }
+
+      .hero{
+        min-height:auto;
+        padding:72px 0 68px;
+        gap:48px;
+      }
+
+      h1{
+        font-size:clamp(2.65rem,12vw,3.5rem);
+        letter-spacing:-2.7px;
+      }
+
+      .hero p{
+        font-size:1rem;
+        line-height:1.7;
+      }
+
+      section{
+        padding:70px 0;
+      }
+
+      .grid,
+      .types,
+      .steps{
+        grid-template-columns:1fr;
+      }
+
+      .contact{
+        padding:28px;
+        display:block;
+      }
+
+      .contact .btn{
+        margin-top:22px;
+      }
+
+      .footer-row{
+        display:block;
+      }
+
+      .footer-links{
+        margin-top:14px;
+        flex-wrap:wrap;
+      }
+
+      .site-preview{
+        min-height:330px;
+        padding:26px;
+      }
+
+      .preview-title{
+        font-size:31px;
+      }
     }
   </style>
 </head>
+
 <body>
+
 <header>
   <div class="container nav">
-    <a href="#inicio" class="logo">Nexa<span>Web</span></a>
+
+    <a href="#inicio" class="logo">
+      Nexa<span>Web</span>
+    </a>
+
     <nav>
-      <a href="#inicio">Início</a><a href="#servicos">O que fazemos</a><a href="#tipos">Tipos de sites</a>
-      <a href="#exemplos">Exemplos</a><a href="#planos">Planos</a><a href="#contato">Contato</a>
-      <a href="#contato" class="btn btn-primary">Quero meu site</a>
+      <a href="#inicio">Início</a>
+      <a href="#servicos">O que fazemos</a>
+      <a href="#tipos">Tipos de sites</a>
+      <a href="#exemplos">Exemplos</a>
+      <a href="#planos">Planos</a>
+      <a href="#contato">Contato</a>
+
+      <a href="#contato" class="btn btn-primary">
+        Quero meu site
+      </a>
     </nav>
-    <button class="menu" aria-label="Abrir menu" onclick="toggleMenu()">☰</button>
+
+    <button
+      class="menu"
+      aria-label="Abrir menu"
+      onclick="toggleMenu()"
+    >
+      ☰
+    </button>
+
   </div>
 </header>
 
+
 <main>
+
+<!-- HERO -->
+
 <section class="container hero" id="inicio">
+
   <div>
-    <div class="eyebrow">✦ NOVA EXPERIÊNCIA · NEXAWEB <span style="margin-left:8px;color:#8fd0ff">✦ NOVA HOME</span></div>
-    <h1>Seu negócio merece uma presença digital de outro nível.</h1>
-    <p>Sites modernos, rápidos e personalizados para transformar a presença do seu negócio na internet.</p>
+
+    <div class="eyebrow">
+      ✦ NEXAWEB
+      <span style="margin-left:8px;color:#8fd0ff">
+        ✦ SITES PROFISSIONAIS
+      </span>
+    </div>
+
+    <h1>
+      Seu negócio merece uma presença digital de outro nível.
+    </h1>
+
+    <p>
+      Sites modernos, rápidos e personalizados para transformar
+      a presença do seu negócio na internet.
+    </p>
+
     <div class="actions">
-      <a class="btn btn-primary" href="#exemplos">Ver exemplos ✦</a>
-      <a class="btn btn-ghost" href="#contato">Quero meu site</a>
+
+      <a class="btn btn-primary" href="#exemplos">
+        Ver exemplos ✦
+      </a>
+
+      <a class="btn btn-ghost" href="#contato">
+        Quero meu site
+      </a>
+
     </div>
+
   </div>
-  <div class="mockup" aria-label="Demonstração visual de um site profissional">
+
+
+  <div
+    class="mockup"
+    aria-label="Demonstração visual de um site profissional"
+  >
+
     <div class="browser">
-      <div class="browser-top"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
-      <div class="site-preview">
-        <div class="preview-pill">SEU NEGÓCIO ONLINE</div>
-        <div class="preview-title">Seu site começa aqui.</div>
-        <div class="preview-lines"><div class="preview-line"></div><div class="preview-line short"></div></div>
-        <div class="preview-card"></div>
+
+      <div class="browser-top">
+        <i class="dot"></i>
+        <i class="dot"></i>
+        <i class="dot"></i>
       </div>
+
+      <div class="site-preview">
+
+        <div class="preview-pill">
+          SEU NEGÓCIO ONLINE
+        </div>
+
+        <div class="preview-title">
+          Seu site começa aqui.
+        </div>
+
+        <div class="preview-lines">
+          <div class="preview-line"></div>
+          <div class="preview-line short"></div>
+        </div>
+
+        <div class="preview-card"></div>
+
+      </div>
+
     </div>
+
   </div>
+
 </section>
+
+
+<!-- SERVIÇOS -->
 
 <section id="servicos">
+
   <div class="container">
-    <div class="section-head"><h2>Transformamos ideias em presença digital.</h2><p>Criamos experiências digitais pensadas para valorizar o seu negócio e facilitar a apresentação dos seus serviços.</p></div>
-    <div class="grid">
-      <div class="card"><div class="card-icon">01</div><h3>Sites profissionais</h3><p>Estruturas modernas para apresentar sua empresa na internet.</p></div>
-      <div class="card"><div class="card-icon">02</div><h3>Design personalizado</h3><p>Visual adaptado à identidade e ao posicionamento do negócio.</p></div>
-      <div class="card"><div class="card-icon">03</div><h3>Responsividade</h3><p>Experiência pensada para celular, tablet e computador.</p></div>
-      <div class="card"><div class="card-icon">04</div><h3>Apresentação do negócio</h3><p>Serviços, informações e diferenciais organizados de forma clara.</p></div>
-      <div class="card"><div class="card-icon">05</div><h3>Personalização de conteúdo</h3><p>O modelo é adaptado com as informações reais de cada cliente.</p></div>
-      <div class="card"><div class="card-icon">06</div><h3>Publicação do site</h3><p>Depois da aprovação, o projeto fica pronto para ser publicado.</p></div>
+
+    <div class="section-head">
+
+      <h2>
+        Transformamos ideias em presença digital.
+      </h2>
+
+      <p>
+        Criamos experiências digitais pensadas para valorizar
+        o seu negócio e facilitar a apresentação dos seus serviços.
+      </p>
+
     </div>
+
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-icon">01</div>
+        <h3>Sites profissionais</h3>
+        <p>
+          Estruturas modernas para apresentar sua empresa na internet.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">02</div>
+        <h3>Design personalizado</h3>
+        <p>
+          Visual adaptado à identidade e ao posicionamento do negócio.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">03</div>
+        <h3>Responsividade</h3>
+        <p>
+          Experiência pensada para celular, tablet e computador.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">04</div>
+        <h3>Apresentação do negócio</h3>
+        <p>
+          Serviços, informações e diferenciais organizados de forma clara.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">05</div>
+        <h3>Personalização de conteúdo</h3>
+        <p>
+          O modelo é adaptado com as informações reais de cada cliente.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">06</div>
+        <h3>Publicação do site</h3>
+        <p>
+          Depois da aprovação, o projeto fica pronto para ser publicado.
+        </p>
+      </div>
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- TIPOS DE SITES -->
 
 <section id="tipos">
+
   <div class="container">
-    <div class="section-head"><h2>Tipos de sites</h2><p>Uma estrutura para diferentes negócios e objetivos.</p></div>
-    <div class="grid types">
-      <div class="card type"><h3>Barbearia</h3><small>Serviços · equipe · contato</small></div>
-      <div class="card type"><h3>Restaurante</h3><small>Cardápio · ambiente · localização</small></div>
-      <div class="card type"><h3>Salão de beleza</h3><small>Serviços · profissionais · galeria</small></div>
-      <div class="card type"><h3>Academia</h3><small>Modalidades · estrutura · planos</small></div>
-      <div class="card type"><h3>Clínica</h3><small>Especialidades · equipe · informações</small></div>
-      <div class="card type"><h3>Loja</h3><small>Produtos · catálogo · apresentação</small></div>
-      <div class="card type"><h3>Imobiliária</h3><small>Imóveis · serviços · contato</small></div>
-      <div class="card type"><h3>Prestador de serviços</h3><small>Serviços · portfólio · diferenciais</small></div>
-      <div class="card type"><h3>Portfólio profissional</h3><small>Projetos · experiência · apresentação</small></div>
-      <div class="card type"><h3>Landing page</h3><small>Oferta · campanha · conversão</small></div>
+
+    <div class="section-head">
+
+      <h2>
+        Tipos de sites
+      </h2>
+
+      <p>
+        Escolha a estrutura que mais combina com o seu negócio.
+        Cada modelo poderá ser personalizado de acordo com a identidade,
+        serviços e objetivos do cliente.
+      </p>
+
     </div>
+
+
+    <div class="grid types">
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">01 · NEGÓCIOS</div>
+
+          <h3>Barbearia</h3>
+
+          <p>
+            Um site moderno para apresentar serviços, equipe,
+            horários, localização e identidade da barbearia.
+          </p>
+        </div>
+
+        <small>
+          Serviços · equipe · contato
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">02 · ALIMENTAÇÃO</div>
+
+          <h3>Restaurante</h3>
+
+          <p>
+            Apresente seu restaurante, cardápio, ambiente,
+            localização e principais informações.
+          </p>
+        </div>
+
+        <small>
+          Cardápio · ambiente · localização
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">03 · BELEZA</div>
+
+          <h3>Salão de beleza</h3>
+
+          <p>
+            Mostre serviços, profissionais, trabalhos realizados
+            e a identidade do seu salão.
+          </p>
+        </div>
+
+        <small>
+          Serviços · profissionais · galeria
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">04 · FITNESS</div>
+
+          <h3>Academia</h3>
+
+          <p>
+            Apresente modalidades, estrutura, planos,
+            diferenciais e informações para novos alunos.
+          </p>
+        </div>
+
+        <small>
+          Modalidades · estrutura · planos
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">05 · SAÚDE</div>
+
+          <h3>Clínica</h3>
+
+          <p>
+            Organize especialidades, profissionais,
+            informações da clínica e formas de contato.
+          </p>
+        </div>
+
+        <small>
+          Especialidades · equipe · informações
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">06 · COMÉRCIO</div>
+
+          <h3>Loja</h3>
+
+          <p>
+            Apresente produtos, catálogo, diferenciais
+            e informações importantes para seus clientes.
+          </p>
+        </div>
+
+        <small>
+          Produtos · catálogo · apresentação
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">07 · IMÓVEIS</div>
+
+          <h3>Imobiliária</h3>
+
+          <p>
+            Uma estrutura para apresentar imóveis,
+            serviços, informações e formas de contato.
+          </p>
+        </div>
+
+        <small>
+          Imóveis · serviços · contato
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">08 · SERVIÇOS</div>
+
+          <h3>Prestador de serviços</h3>
+
+          <p>
+            Mostre seus serviços, trabalhos realizados,
+            diferenciais e informações profissionais.
+          </p>
+        </div>
+
+        <small>
+          Serviços · portfólio · diferenciais
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">09 · PROFISSIONAL</div>
+
+          <h3>Portfólio profissional</h3>
+
+          <p>
+            Apresente projetos, experiência, habilidades
+            e sua trajetória profissional.
+          </p>
+        </div>
+
+        <small>
+          Projetos · experiência · apresentação
+        </small>
+
+      </div>
+
+
+      <div class="card type">
+
+        <div>
+          <div class="type-number">10 · CAMPANHAS</div>
+
+          <h3>Landing page</h3>
+
+          <p>
+            Uma página focada em apresentar uma oferta,
+            campanha, produto ou serviço de forma objetiva.
+          </p>
+        </div>
+
+        <small>
+          Oferta · campanha · conversão
+        </small>
+
+      </div>
+
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- DEMONSTRAÇÕES -->
 
 <section id="exemplos">
+
   <div class="container">
-    <div class="section-head"><h2>Exemplos e demonstrações</h2><p>Veja como um projeto pode ganhar uma apresentação própria e profissional.</p></div>
-    <div class="demo">
-      <article class="card demo-card">
-        <div class="demo-image">KING'S BARBER</div>
-        <div class="demo-body"><h3>King’s Barber</h3><p>Primeiro modelo de demonstração da NexaWeb para o segmento de barbearias.</p><a class="btn btn-ghost" href="#" onclick="alert('O preview do King’s Barber será conectado aqui.');return false;" style="margin-top:18px">Ver demonstração</a></div>
-      </article>
-      <article class="card demo-card coming">
-        <div class="demo-image">EM BREVE</div>
-        <div class="demo-body"><h3>Novos modelos</h3><p>Restaurante, salão, academia, clínica, loja e outros modelos serão adicionados posteriormente.</p></div>
-      </article>
+
+    <div class="section-head">
+
+      <h2>
+        Exemplos e demonstrações
+      </h2>
+
+      <p>
+        Veja como um projeto pode ganhar uma apresentação
+        própria e profissional.
+      </p>
+
     </div>
+
+
+    <div class="demo">
+
+
+      <article class="card demo-card">
+
+        <div class="demo-image">
+          KING'S BARBER
+        </div>
+
+        <div class="demo-body">
+
+          <h3>
+            King’s Barber
+          </h3>
+
+          <p>
+            Primeiro modelo de demonstração da NexaWeb
+            para o segmento de barbearias.
+          </p>
+
+          <a
+            class="btn btn-ghost"
+            href="#"
+            onclick="alert('O preview do King’s Barber será conectado aqui.');return false;"
+            style="margin-top:18px"
+          >
+            Ver demonstração
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <article class="card demo-card coming">
+
+        <div class="demo-image">
+          EM BREVE
+        </div>
+
+        <div class="demo-body">
+
+          <h3>
+            Novos modelos
+          </h3>
+
+          <p>
+            Restaurante, salão, academia, clínica,
+            loja e outros modelos serão adicionados posteriormente.
+          </p>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- COMO FUNCIONA -->
 
 <section id="como-funciona">
+
   <div class="container">
-    <div class="section-head"><h2>Como funciona</h2><p>Um processo simples para transformar as informações do seu negócio em um site profissional.</p></div>
-    <div class="steps">
-      <div class="card"><div class="step-number">01</div><h3>Escolha o tipo</h3><p>Defina o modelo que combina com seu negócio.</p></div>
-      <div class="card"><div class="step-number">02</div><h3>Envie as informações</h3><p>Compartilhe os dados e materiais reais do negócio.</p></div>
-      <div class="card"><div class="step-number">03</div><h3>Personalizamos</h3><p>Adaptamos o projeto à sua identidade.</p></div>
-      <div class="card"><div class="step-number">04</div><h3>Você aprova</h3><p>O projeto é revisado antes da publicação.</p></div>
-      <div class="card"><div class="step-number">05</div><h3>Publicamos</h3><p>O site aprovado fica pronto para entrar no ar.</p></div>
+
+    <div class="section-head">
+
+      <h2>
+        Como funciona
+      </h2>
+
+      <p>
+        Um processo simples para transformar as informações
+        do seu negócio em um site profissional.
+      </p>
+
     </div>
+
+
+    <div class="steps">
+
+
+      <div class="card">
+        <div class="step-number">01</div>
+        <h3>Escolha o tipo</h3>
+        <p>
+          Defina o modelo que combina com seu negócio.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="step-number">02</div>
+        <h3>Envie as informações</h3>
+        <p>
+          Compartilhe os dados e materiais reais do negócio.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="step-number">03</div>
+        <h3>Personalizamos</h3>
+        <p>
+          Adaptamos o projeto à sua identidade.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="step-number">04</div>
+        <h3>Você aprova</h3>
+        <p>
+          O projeto é revisado antes da publicação.
+        </p>
+      </div>
+
+
+      <div class="card">
+        <div class="step-number">05</div>
+        <h3>Publicamos</h3>
+        <p>
+          O site aprovado fica pronto para entrar no ar.
+        </p>
+      </div>
+
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- PLANOS -->
 
 <section id="planos">
+
   <div class="container">
-    <div class="section-head"><h2>Planos</h2><p>Valores iniciais. O preço final depende das funcionalidades e personalizações de cada projeto.</p></div>
-    <div class="grid">
-      <div class="card"><h3>Essencial</h3><div class="price">R$400 <span>a partir de</span></div><p>Uma opção para uma presença profissional e objetiva na web.</p></div>
-      <div class="card featured"><h3>Profissional</h3><div class="price">R$550 <span>a partir de</span></div><p>Mais espaço para apresentar serviços, conteúdo e identidade do negócio.</p></div>
-      <div class="card"><h3>Personalizado</h3><div class="price">Orçamento</div><p>Projeto adaptado às necessidades e funcionalidades específicas do negócio.</p></div>
+
+    <div class="section-head">
+
+      <h2>
+        Planos
+      </h2>
+
+      <p>
+        Valores iniciais. O preço final depende das funcionalidades
+        e personalizações de cada projeto.
+      </p>
+
     </div>
+
+
+    <div class="grid">
+
+
+      <div class="card">
+
+        <h3>
+          Essencial
+        </h3>
+
+        <div class="price">
+          R$600
+          <span>a partir de</span>
+        </div>
+
+        <p>
+          Uma opção para uma presença profissional
+          e objetiva na web.
+        </p>
+
+      </div>
+
+
+      <div class="card featured">
+
+        <h3>
+          Profissional
+        </h3>
+
+        <div class="price">
+          R$900
+          <span>a partir de</span>
+        </div>
+
+        <p>
+          Mais espaço para apresentar serviços,
+          conteúdo e identidade do negócio.
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Personalizado
+        </h3>
+
+        <div class="price">
+          R$1.300+
+          <span>a partir de</span>
+        </div>
+
+        <p>
+          Projeto adaptado às necessidades e funcionalidades
+          específicas de cada negócio.
+        </p>
+
+      </div>
+
+
+    </div>
+
   </div>
+
 </section>
+
+
+<!-- SOBRE -->
 
 <section id="sobre">
+
   <div class="container about">
-    <div class="about-box"><div class="eyebrow">Sobre a NexaWeb</div><h2>Seu negócio, com uma presença digital própria.</h2><p>A NexaWeb cria sites para ajudar negócios a apresentarem seus serviços e sua identidade de forma profissional na internet.</p></div>
-    <div class="about-box"><h3>Modelos são apenas o começo.</h3><p>Cada projeto é personalizado com as informações reais do cliente. O objetivo é usar uma estrutura profissional como base e adaptá-la ao negócio, ao público e à identidade de cada empresa.</p></div>
+
+
+    <div class="about-box">
+
+      <div class="eyebrow">
+        Sobre a NexaWeb
+      </div>
+
+      <h2>
+        Seu negócio, com uma presença digital própria.
+      </h2>
+
+      <p>
+        A NexaWeb cria sites para ajudar negócios a apresentarem
+        seus serviços e sua identidade de forma profissional na internet.
+      </p>
+
+    </div>
+
+
+    <div class="about-box">
+
+      <h3>
+        Modelos são apenas o começo.
+      </h3>
+
+      <p>
+        Cada projeto é personalizado com as informações reais do cliente.
+        O objetivo é usar uma estrutura profissional como base e adaptá-la
+        ao negócio, ao público e à identidade de cada empresa.
+      </p>
+
+    </div>
+
+
   </div>
+
 </section>
+
+
+<!-- CONTATO -->
 
 <section id="contato">
+
   <div class="container">
+
     <div class="contact">
-      <div><div class="eyebrow">Vamos criar seu site?</div><h2>Pronto para colocar seu negócio na web?</h2><p style="color:var(--muted);margin-top:8px">Entre em contato com a NexaWeb para solicitar um orçamento.</p></div>
-      <a class="btn btn-primary" href="mailto:contato@nexaweb.com.br">Solicitar orçamento</a>
+
+      <div>
+
+        <div class="eyebrow">
+          Vamos criar seu site?
+        </div>
+
+        <h2>
+          Pronto para colocar seu negócio na web?
+        </h2>
+
+        <p style="color:var(--muted);margin-top:8px">
+          Entre em contato com a NexaWeb para solicitar um orçamento.
+        </p>
+
+      </div>
+
+
+      <a
+        class="btn btn-primary"
+        href="mailto:contato@nexaweb.com.br"
+      >
+        Solicitar orçamento
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
 </main>
 
+
+<!-- RODAPÉ -->
+
 <footer>
+
   <div class="container footer-row">
-    <div><strong>NexaWeb</strong><br><span>Sites profissionais para o seu negócio. · Nova Home</span></div>
-    <div class="footer-links"><a href="#inicio">Início</a><a href="#tipos">Tipos de sites</a><a href="#planos">Planos</a><a href="#contato">Contato</a></div>
+
+    <div>
+
+      <strong>NexaWeb</strong>
+
+      <br />
+
+      <span>
+        Sites profissionais para o seu negócio.
+      </span>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="#inicio">
+        Início
+      </a>
+
+      <a href="#tipos">
+        Tipos de sites
+      </a>
+
+      <a href="#planos">
+        Planos
+      </a>
+
+      <a href="#contato">
+        Contato
+      </a>
+
+    </div>
+
   </div>
+
 </footer>
 
+
 <script>
+
   function toggleMenu(){
-    const nav=document.querySelector('nav');
-    const open=nav.style.display==='flex';
-    nav.style.display=open?'none':'flex';
+
+    const nav = document.querySelector('nav');
+
+    const open = nav.style.display === 'flex';
+
+    nav.style.display = open ? 'none' : 'flex';
+
     if(!open){
-      nav.style.position='absolute';nav.style.top='68px';nav.style.left='0';nav.style.right='0';
-      nav.style.padding='18px';nav.style.flexDirection='column';nav.style.alignItems='stretch';
-      nav.style.background='rgba(7,16,31,.98)';
-      nav.style.borderBottom='1px solid rgba(255,255,255,.09)';
+
+      nav.style.position = 'absolute';
+      nav.style.top = '68px';
+      nav.style.left = '0';
+      nav.style.right = '0';
+
+      nav.style.padding = '18px';
+
+      nav.style.flexDirection = 'column';
+
+      nav.style.alignItems = 'stretch';
+
+      nav.style.background = 'rgba(7,16,31,.98)';
+
+      nav.style.borderBottom =
+        '1px solid rgba(255,255,255,.09)';
     }
+
   }
+
 </script>
+
 </body>
-  </html>
+</html>
