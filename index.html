@@ -935,6 +935,43 @@
       box-shadow:0 0 0 3px rgba(91,140,255,.10);
     }
 
+    .specific-briefing{
+      display:grid;
+      gap:16px;
+      margin-top:2px;
+      padding-top:4px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .specific-briefing-title{
+      margin:2px 0 0;
+      font-size:1rem;
+      font-weight:800;
+    }
+
+    .specific-briefing-subtitle{
+      margin:-8px 0 0;
+      color:var(--muted);
+      font-size:.86rem;
+      line-height:1.5;
+    }
+
+    .briefing-field input[type="file"]{
+      padding:10px;
+    }
+
+    .briefing-field small{
+      color:var(--muted);
+      font-size:.78rem;
+      line-height:1.45;
+    }
+
+    @media (max-width:700px){
+      .briefing-field input[type="file"]{
+        font-size:.82rem;
+      }
+    }
+
     .briefing-note{
       padding:13px 14px;
       border:1px solid rgba(255,255,255,.08);
@@ -2109,6 +2146,8 @@
 
       </div>
 
+      <div id="specificBriefingFields"></div>
+
       <div class="briefing-note">
         Esta é a estrutura inicial do briefing. Os campos específicos
         de cada tipo de site serão adicionados nas próximas etapas.
@@ -2463,6 +2502,131 @@
   }
 
 
+  /* CAMPOS ESPECÍFICOS POR TIPO */
+
+  function renderSpecificBriefing(type){
+
+    const container = document.getElementById('specificBriefingFields');
+
+    if(!container){
+      return;
+    }
+
+    container.innerHTML = '';
+
+    if(type === 'barbearia'){
+
+      container.innerHTML = `
+        <div class="specific-briefing">
+
+          <h3 class="specific-briefing-title">
+            Informações da barbearia
+          </h3>
+
+          <p class="specific-briefing-subtitle">
+            Agora vamos reunir os detalhes que serão usados para montar o site da sua barbearia.
+          </p>
+
+          <div class="briefing-grid">
+
+            <div class="briefing-field full">
+              <label for="barbeariaEndereco">Endereço</label>
+              <input id="barbeariaEndereco" name="endereco" type="text"
+                placeholder="Rua, número, bairro, cidade...">
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaHorario">Horário de funcionamento</label>
+              <textarea id="barbeariaHorario" name="horario_funcionamento"
+                placeholder="Ex.: Segunda a sexta: 09h às 19h. Sábado: 09h às 17h."></textarea>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaDescricao">Descrição da barbearia</label>
+              <textarea id="barbeariaDescricao" name="descricao"
+                placeholder="Conte um pouco sobre a barbearia, sua proposta e seu estilo."></textarea>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaServicos">Serviços</label>
+              <textarea id="barbeariaServicos" name="servicos"
+                placeholder="Liste os serviços oferecidos."></textarea>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaCortes">Cortes</label>
+              <textarea id="barbeariaCortes" name="cortes"
+                placeholder="Ex.: Corte tradicional, degradê, navalhado..."></textarea>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaBarba">Barba</label>
+              <textarea id="barbeariaBarba" name="barba"
+                placeholder="Tipos de serviço de barba."></textarea>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaCombos">Combos</label>
+              <textarea id="barbeariaCombos" name="combos"
+                placeholder="Ex.: Corte + barba."></textarea>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaPrecos">Preços</label>
+              <textarea id="barbeariaPrecos" name="precos"
+                placeholder="Informe os preços dos serviços, se desejar."></textarea>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaProfissionais">Barbeiros/profissionais</label>
+              <textarea id="barbeariaProfissionais" name="profissionais"
+                placeholder="Nome e função de cada profissional, se quiser apresentar a equipe."></textarea>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaFotos">Fotos</label>
+              <input id="barbeariaFotos" name="fotos" type="file" accept="image/*" multiple>
+              <small>Você poderá selecionar várias fotos da barbearia e dos trabalhos.</small>
+            </div>
+
+            <div class="briefing-field">
+              <label for="barbeariaLogo">Logo</label>
+              <input id="barbeariaLogo" name="logo" type="file" accept="image/*">
+              <small>Se tiver a logo em imagem, envie aqui.</small>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaRedes">Outras redes sociais</label>
+              <textarea id="barbeariaRedes" name="outras_redes"
+                placeholder="Facebook, TikTok, YouTube ou outras redes."></textarea>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaDiferenciais">Diferenciais</label>
+              <textarea id="barbeariaDiferenciais" name="diferenciais"
+                placeholder="O que diferencia sua barbearia das outras?"></textarea>
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaLocalizacao">Link da localização</label>
+              <input id="barbeariaLocalizacao" name="link_localizacao" type="url"
+                placeholder="Cole o link do Google Maps, por exemplo.">
+            </div>
+
+            <div class="briefing-field full">
+              <label for="barbeariaOutrasInfo">Outras informações</label>
+              <textarea id="barbeariaOutrasInfo" name="outras_informacoes"
+                placeholder="Alguma informação importante que ainda não foi perguntada?"></textarea>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+  }
+
+
   /* ABRIR BRIEFING */
 
   function openBriefing(type){
@@ -2476,6 +2640,8 @@
     selectedBriefingType = type;
 
     document.getElementById('briefingType').value = type;
+
+    renderSpecificBriefing(type);
 
     document.getElementById('briefingCategory').textContent =
       data.category;
