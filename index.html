@@ -33,9 +33,14 @@
 
     html{
       scroll-behavior:smooth;
+      width:100%;
+      overflow-x:clip;
     }
 
     body{
+      width:100%;
+      max-width:100%;
+      overflow-x:clip;
       font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       background:
         radial-gradient(circle at 82% 4%,rgba(79,157,255,.18),transparent 28%),
@@ -57,7 +62,16 @@
 
     .container{
       width:min(var(--max),92%);
-      margin:auto;
+      max-width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .grid > *,
+    .about > *,
+    .demo > *,
+    .steps > *{
+      min-width:0;
     }
 
     header{
@@ -159,7 +173,7 @@
       grid-template-columns:1.03fr .97fr;
       align-items:center;
       gap:72px;
-      overflow:visible;
+      overflow:hidden;
     }
 
     .hero:before{
@@ -582,34 +596,6 @@
       margin-top:12px;
     }
 
-    .model-gallery{
-      display:none;
-      margin-top:24px;
-    }
-
-    .model-gallery.active{
-      display:block;
-    }
-
-    .model-gallery h4{
-      margin-bottom:12px;
-    }
-
-    .model-gallery-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-
-    .model-gallery-grid img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      display:block;
-    }
-
     .modal-info{
       margin-top:24px;
       padding-top:22px;
@@ -802,6 +788,14 @@
 
     @media(max-width:600px){
 
+      section,
+      .container,
+      .grid,
+      .types,
+      .type{
+        max-width:100%;
+      }
+
       .nav{
         height:68px;
       }
@@ -867,17 +861,7 @@
         font-size:1.7rem;
       }
     }
-  
-    @media(max-width:600px){
-      .model-gallery-grid{
-        grid-template-columns:1fr;
-      }
-
-      .model-gallery-grid img{
-        height:210px;
-      }
-    }
-</style>
+  </style>
 </head>
 
 <body>
@@ -1853,11 +1837,6 @@
       Descrição do modelo.
     </p>
 
-    <div class="model-gallery" id="modelGallery">
-      <h4>Sites criados pela NexaWeb</h4>
-      <div class="model-gallery-grid" id="modelGalleryGrid"></div>
-    </div>
-
     <div class="modal-info">
 
       <h4>
@@ -1969,8 +1948,6 @@
 
   /* DADOS DOS MODELOS */
 
-  /* IMAGENS REAIS DOS CLIENTES: adicionar apenas fotos de sites realmente criados. */
-
   const typeData = {
 
     barbearia: {
@@ -1978,7 +1955,6 @@
       title: 'Site para Barbearia',
       description:
         'Uma estrutura moderna para apresentar a barbearia, seus serviços e sua identidade de forma profissional.',
-      images: [],
       items: [
         'Apresentação da barbearia',
         'Serviços e preços',
@@ -1994,7 +1970,6 @@
       title: 'Site para Restaurante',
       description:
         'Uma estrutura pensada para apresentar o restaurante, seu ambiente, seus pratos e suas principais informações.',
-      images: [],
       items: [
         'Apresentação do restaurante',
         'Cardápio',
@@ -2010,7 +1985,6 @@
       title: 'Site para Salão de beleza',
       description:
         'Uma apresentação elegante para destacar serviços, profissionais, trabalhos realizados e a identidade do salão.',
-      images: [],
       items: [
         'Apresentação do salão',
         'Serviços oferecidos',
@@ -2026,7 +2000,6 @@
       title: 'Site para Academia',
       description:
         'Uma estrutura para apresentar a academia, suas modalidades, estrutura e informações para novos alunos.',
-      images: [],
       items: [
         'Apresentação da academia',
         'Modalidades',
@@ -2042,7 +2015,6 @@
       title: 'Site para Clínica',
       description:
         'Uma estrutura profissional para organizar especialidades, profissionais e informações importantes da clínica.',
-      images: [],
       items: [
         'Apresentação da clínica',
         'Especialidades',
@@ -2058,7 +2030,6 @@
       title: 'Site para Loja',
       description:
         'Uma estrutura para apresentar produtos, catálogo e diferenciais da loja de maneira organizada.',
-      images: [],
       items: [
         'Apresentação da loja',
         'Produtos',
@@ -2074,7 +2045,6 @@
       title: 'Site para Imobiliária',
       description:
         'Uma estrutura para apresentar a imobiliária, seus serviços e imóveis de forma clara e profissional.',
-      images: [],
       items: [
         'Apresentação da imobiliária',
         'Imóveis',
@@ -2090,7 +2060,6 @@
       title: 'Site para Prestador de serviços',
       description:
         'Uma apresentação profissional para mostrar serviços, experiência, trabalhos realizados e diferenciais.',
-      images: [],
       items: [
         'Apresentação profissional',
         'Serviços',
@@ -2106,7 +2075,6 @@
       title: 'Portfólio profissional',
       description:
         'Uma estrutura focada em apresentar projetos, experiência, habilidades e trajetória profissional.',
-      images: [],
       items: [
         'Apresentação pessoal',
         'Projetos',
@@ -2122,7 +2090,6 @@
       title: 'Landing page',
       description:
         'Uma página focada em apresentar uma oferta, produto, serviço ou campanha de forma objetiva.',
-      images: [],
       items: [
         'Título e proposta principal',
         'Benefícios',
@@ -2154,32 +2121,6 @@
 
     document.getElementById('modalDescription').textContent =
       data.description;
-
-    const gallery = document.getElementById('modelGallery');
-    const galleryGrid = document.getElementById('modelGalleryGrid');
-
-    galleryGrid.innerHTML = '';
-
-    if(data.images && data.images.length){
-
-      data.images.forEach(function(src){
-
-        const img = document.createElement('img');
-
-        img.src = src;
-        img.alt = data.title + ' — site criado pela NexaWeb';
-
-        galleryGrid.appendChild(img);
-
-      });
-
-      gallery.classList.add('active');
-
-    }else{
-
-      gallery.classList.remove('active');
-
-    }
 
     const list =
       document.getElementById('modalList');
