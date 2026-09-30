@@ -51,6 +51,10 @@
       color:inherit;
     }
 
+    button{
+      font:inherit;
+    }
+
     .container{
       width:min(var(--max),92%);
       margin:auto;
@@ -108,7 +112,11 @@
       border-radius:13px;
       font-weight:750;
       border:1px solid transparent;
-      transition:transform .2s,box-shadow .2s,border-color .2s,background .2s;
+      transition:
+        transform .2s,
+        box-shadow .2s,
+        border-color .2s,
+        background .2s;
       cursor:pointer;
     }
 
@@ -454,7 +462,7 @@
     }
 
     .type{
-      min-height:170px;
+      min-height:230px;
       display:flex;
       flex-direction:column;
       justify-content:space-between;
@@ -484,6 +492,130 @@
       margin-top:18px;
       color:#7fa9d7;
       font-size:.78rem;
+    }
+
+    .type-btn{
+      margin-top:18px;
+      width:100%;
+      padding:10px 13px;
+      border-radius:11px;
+      border:1px solid rgba(103,183,255,.16);
+      background:rgba(103,183,255,.055);
+      color:#9bcfff;
+      font-size:.78rem;
+      font-weight:750;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .type-btn:hover{
+      background:rgba(103,183,255,.10);
+      border-color:rgba(103,183,255,.28);
+      transform:translateY(-1px);
+    }
+
+    /* MODAL DOS TIPOS */
+
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(0,0,0,.72);
+      backdrop-filter:blur(10px);
+    }
+
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-box{
+      width:min(560px,100%);
+      max-height:90vh;
+      overflow:auto;
+      padding:30px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:25px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(17,32,56,.98),
+          rgba(7,15,28,.98)
+        );
+      box-shadow:0 30px 100px rgba(0,0,0,.55);
+      position:relative;
+    }
+
+    .modal-close{
+      position:absolute;
+      top:15px;
+      right:15px;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      color:#fff;
+      cursor:pointer;
+      font-size:1.2rem;
+    }
+
+    .modal-category{
+      color:#7fb9ff;
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.6px;
+      margin-bottom:9px;
+    }
+
+    .modal-box h2{
+      font-size:2rem;
+      letter-spacing:-1px;
+      margin-right:40px;
+    }
+
+    .modal-box > p{
+      color:var(--muted);
+      margin-top:12px;
+    }
+
+    .modal-info{
+      margin-top:24px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+
+    .modal-info h4{
+      margin-bottom:12px;
+      font-size:.92rem;
+    }
+
+    .modal-info ul{
+      list-style:none;
+      display:grid;
+      gap:9px;
+    }
+
+    .modal-info li{
+      color:var(--muted);
+      font-size:.9rem;
+      padding-left:20px;
+      position:relative;
+    }
+
+    .modal-info li:before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      color:#73c4ff;
+      font-weight:800;
+    }
+
+    .modal-action{
+      margin-top:26px;
     }
 
     .demo{
@@ -697,6 +829,14 @@
 
       .preview-title{
         font-size:31px;
+      }
+
+      .modal-box{
+        padding:25px 22px;
+      }
+
+      .modal-box h2{
+        font-size:1.7rem;
       }
     }
   </style>
@@ -915,202 +1055,392 @@
     <div class="grid types">
 
 
+      <!-- BARBEARIA -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">01 · NEGÓCIOS</div>
 
-          <h3>Barbearia</h3>
+          <div class="type-number">
+            01 · NEGÓCIOS
+          </div>
+
+          <h3>
+            Barbearia
+          </h3>
 
           <p>
             Um site moderno para apresentar serviços, equipe,
             horários, localização e identidade da barbearia.
           </p>
+
         </div>
 
-        <small>
-          Serviços · equipe · contato
-        </small>
+        <div>
+
+          <small>
+            Serviços · equipe · contato
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('barbearia')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- RESTAURANTE -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">02 · ALIMENTAÇÃO</div>
 
-          <h3>Restaurante</h3>
+          <div class="type-number">
+            02 · ALIMENTAÇÃO
+          </div>
+
+          <h3>
+            Restaurante
+          </h3>
 
           <p>
             Apresente seu restaurante, cardápio, ambiente,
             localização e principais informações.
           </p>
+
         </div>
 
-        <small>
-          Cardápio · ambiente · localização
-        </small>
+        <div>
+
+          <small>
+            Cardápio · ambiente · localização
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('restaurante')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- SALÃO -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">03 · BELEZA</div>
 
-          <h3>Salão de beleza</h3>
+          <div class="type-number">
+            03 · BELEZA
+          </div>
+
+          <h3>
+            Salão de beleza
+          </h3>
 
           <p>
             Mostre serviços, profissionais, trabalhos realizados
             e a identidade do seu salão.
           </p>
+
         </div>
 
-        <small>
-          Serviços · profissionais · galeria
-        </small>
+        <div>
+
+          <small>
+            Serviços · profissionais · galeria
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('salao')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- ACADEMIA -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">04 · FITNESS</div>
 
-          <h3>Academia</h3>
+          <div class="type-number">
+            04 · FITNESS
+          </div>
+
+          <h3>
+            Academia
+          </h3>
 
           <p>
             Apresente modalidades, estrutura, planos,
             diferenciais e informações para novos alunos.
           </p>
+
         </div>
 
-        <small>
-          Modalidades · estrutura · planos
-        </small>
+        <div>
+
+          <small>
+            Modalidades · estrutura · planos
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('academia')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- CLÍNICA -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">05 · SAÚDE</div>
 
-          <h3>Clínica</h3>
+          <div class="type-number">
+            05 · SAÚDE
+          </div>
+
+          <h3>
+            Clínica
+          </h3>
 
           <p>
             Organize especialidades, profissionais,
             informações da clínica e formas de contato.
           </p>
+
         </div>
 
-        <small>
-          Especialidades · equipe · informações
-        </small>
+        <div>
+
+          <small>
+            Especialidades · equipe · informações
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('clinica')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- LOJA -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">06 · COMÉRCIO</div>
 
-          <h3>Loja</h3>
+          <div class="type-number">
+            06 · COMÉRCIO
+          </div>
+
+          <h3>
+            Loja
+          </h3>
 
           <p>
             Apresente produtos, catálogo, diferenciais
             e informações importantes para seus clientes.
           </p>
+
         </div>
 
-        <small>
-          Produtos · catálogo · apresentação
-        </small>
+        <div>
+
+          <small>
+            Produtos · catálogo · apresentação
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('loja')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- IMOBILIÁRIA -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">07 · IMÓVEIS</div>
 
-          <h3>Imobiliária</h3>
+          <div class="type-number">
+            07 · IMÓVEIS
+          </div>
+
+          <h3>
+            Imobiliária
+          </h3>
 
           <p>
             Uma estrutura para apresentar imóveis,
             serviços, informações e formas de contato.
           </p>
+
         </div>
 
-        <small>
-          Imóveis · serviços · contato
-        </small>
+        <div>
+
+          <small>
+            Imóveis · serviços · contato
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('imobiliaria')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- PRESTADOR -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">08 · SERVIÇOS</div>
 
-          <h3>Prestador de serviços</h3>
+          <div class="type-number">
+            08 · SERVIÇOS
+          </div>
+
+          <h3>
+            Prestador de serviços
+          </h3>
 
           <p>
             Mostre seus serviços, trabalhos realizados,
             diferenciais e informações profissionais.
           </p>
+
         </div>
 
-        <small>
-          Serviços · portfólio · diferenciais
-        </small>
+        <div>
+
+          <small>
+            Serviços · portfólio · diferenciais
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('prestador')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- PORTFÓLIO -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">09 · PROFISSIONAL</div>
 
-          <h3>Portfólio profissional</h3>
+          <div class="type-number">
+            09 · PROFISSIONAL
+          </div>
+
+          <h3>
+            Portfólio profissional
+          </h3>
 
           <p>
             Apresente projetos, experiência, habilidades
             e sua trajetória profissional.
           </p>
+
         </div>
 
-        <small>
-          Projetos · experiência · apresentação
-        </small>
+        <div>
+
+          <small>
+            Projetos · experiência · apresentação
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('portfolio')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
 
+      <!-- LANDING PAGE -->
+
       <div class="card type">
 
         <div>
-          <div class="type-number">10 · CAMPANHAS</div>
 
-          <h3>Landing page</h3>
+          <div class="type-number">
+            10 · CAMPANHAS
+          </div>
+
+          <h3>
+            Landing page
+          </h3>
 
           <p>
             Uma página focada em apresentar uma oferta,
             campanha, produto ou serviço de forma objetiva.
           </p>
+
         </div>
 
-        <small>
-          Oferta · campanha · conversão
-        </small>
+        <div>
+
+          <small>
+            Oferta · campanha · conversão
+          </small>
+
+          <button
+            class="type-btn"
+            onclick="openType('landing')"
+          >
+            Conhecer este modelo →
+          </button>
+
+        </div>
 
       </div>
 
@@ -1453,6 +1783,66 @@
 </main>
 
 
+<!-- MODAL DOS TIPOS -->
+
+<div
+  class="modal"
+  id="typeModal"
+  onclick="closeModalOutside(event)"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      onclick="closeType()"
+      aria-label="Fechar"
+    >
+      ×
+    </button>
+
+    <div
+      class="modal-category"
+      id="modalCategory"
+    >
+    </div>
+
+    <h2 id="modalTitle">
+      Modelo
+    </h2>
+
+    <p id="modalDescription">
+      Descrição do modelo.
+    </p>
+
+    <div class="modal-info">
+
+      <h4>
+        Estrutura que pode fazer parte do site
+      </h4>
+
+      <ul id="modalList">
+      </ul>
+
+    </div>
+
+    <div class="modal-action">
+
+      <a
+        href="#contato"
+        class="btn btn-primary"
+        onclick="closeType()"
+      >
+        Solicitar orçamento
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <!-- RODAPÉ -->
 
 <footer>
@@ -1499,6 +1889,8 @@
 
 <script>
 
+  /* MENU MOBILE */
+
   function toggleMenu(){
 
     const nav = document.querySelector('nav');
@@ -1510,8 +1902,11 @@
     if(!open){
 
       nav.style.position = 'absolute';
+
       nav.style.top = '68px';
+
       nav.style.left = '0';
+
       nav.style.right = '0';
 
       nav.style.padding = '18px';
@@ -1528,7 +1923,240 @@
 
   }
 
+
+  /* DADOS DOS MODELOS */
+
+  const typeData = {
+
+    barbearia: {
+      category: '01 · NEGÓCIOS',
+      title: 'Site para Barbearia',
+      description:
+        'Uma estrutura moderna para apresentar a barbearia, seus serviços e sua identidade de forma profissional.',
+      items: [
+        'Apresentação da barbearia',
+        'Serviços e preços',
+        'Equipe e profissionais',
+        'Galeria de fotos',
+        'Horários e localização',
+        'Contato e informações'
+      ]
+    },
+
+    restaurante: {
+      category: '02 · ALIMENTAÇÃO',
+      title: 'Site para Restaurante',
+      description:
+        'Uma estrutura pensada para apresentar o restaurante, seu ambiente, seus pratos e suas principais informações.',
+      items: [
+        'Apresentação do restaurante',
+        'Cardápio',
+        'Fotos dos pratos e ambiente',
+        'Horários de funcionamento',
+        'Localização',
+        'Contato e informações'
+      ]
+    },
+
+    salao: {
+      category: '03 · BELEZA',
+      title: 'Site para Salão de beleza',
+      description:
+        'Uma apresentação elegante para destacar serviços, profissionais, trabalhos realizados e a identidade do salão.',
+      items: [
+        'Apresentação do salão',
+        'Serviços oferecidos',
+        'Profissionais',
+        'Galeria de trabalhos',
+        'Horários',
+        'Contato e localização'
+      ]
+    },
+
+    academia: {
+      category: '04 · FITNESS',
+      title: 'Site para Academia',
+      description:
+        'Uma estrutura para apresentar a academia, suas modalidades, estrutura e informações para novos alunos.',
+      items: [
+        'Apresentação da academia',
+        'Modalidades',
+        'Estrutura e equipamentos',
+        'Planos',
+        'Horários',
+        'Contato e localização'
+      ]
+    },
+
+    clinica: {
+      category: '05 · SAÚDE',
+      title: 'Site para Clínica',
+      description:
+        'Uma estrutura profissional para organizar especialidades, profissionais e informações importantes da clínica.',
+      items: [
+        'Apresentação da clínica',
+        'Especialidades',
+        'Equipe profissional',
+        'Informações dos atendimentos',
+        'Localização e horários',
+        'Contato'
+      ]
+    },
+
+    loja: {
+      category: '06 · COMÉRCIO',
+      title: 'Site para Loja',
+      description:
+        'Uma estrutura para apresentar produtos, catálogo e diferenciais da loja de maneira organizada.',
+      items: [
+        'Apresentação da loja',
+        'Produtos',
+        'Catálogo',
+        'Categorias',
+        'Diferenciais',
+        'Contato e localização'
+      ]
+    },
+
+    imobiliaria: {
+      category: '07 · IMÓVEIS',
+      title: 'Site para Imobiliária',
+      description:
+        'Uma estrutura para apresentar a imobiliária, seus serviços e imóveis de forma clara e profissional.',
+      items: [
+        'Apresentação da imobiliária',
+        'Imóveis',
+        'Informações dos imóveis',
+        'Serviços',
+        'Localização',
+        'Contato'
+      ]
+    },
+
+    prestador: {
+      category: '08 · SERVIÇOS',
+      title: 'Site para Prestador de serviços',
+      description:
+        'Uma apresentação profissional para mostrar serviços, experiência, trabalhos realizados e diferenciais.',
+      items: [
+        'Apresentação profissional',
+        'Serviços',
+        'Trabalhos realizados',
+        'Diferenciais',
+        'Área de atuação',
+        'Contato'
+      ]
+    },
+
+    portfolio: {
+      category: '09 · PROFISSIONAL',
+      title: 'Portfólio profissional',
+      description:
+        'Uma estrutura focada em apresentar projetos, experiência, habilidades e trajetória profissional.',
+      items: [
+        'Apresentação pessoal',
+        'Projetos',
+        'Experiência',
+        'Habilidades',
+        'Informações profissionais',
+        'Contato'
+      ]
+    },
+
+    landing: {
+      category: '10 · CAMPANHAS',
+      title: 'Landing page',
+      description:
+        'Uma página focada em apresentar uma oferta, produto, serviço ou campanha de forma objetiva.',
+      items: [
+        'Título e proposta principal',
+        'Benefícios',
+        'Apresentação da oferta',
+        'Informações do produto ou serviço',
+        'Chamada para ação',
+        'Contato ou conversão'
+      ]
+    }
+
+  };
+
+
+  /* ABRIR MODELO */
+
+  function openType(type){
+
+    const data = typeData[type];
+
+    if(!data){
+      return;
+    }
+
+    document.getElementById('modalCategory').textContent =
+      data.category;
+
+    document.getElementById('modalTitle').textContent =
+      data.title;
+
+    document.getElementById('modalDescription').textContent =
+      data.description;
+
+    const list =
+      document.getElementById('modalList');
+
+    list.innerHTML = '';
+
+    data.items.forEach(function(item){
+
+      const li = document.createElement('li');
+
+      li.textContent = item;
+
+      list.appendChild(li);
+
+    });
+
+    document
+      .getElementById('typeModal')
+      .classList.add('active');
+
+    document.body.style.overflow = 'hidden';
+  }
+
+
+  /* FECHAR MODELO */
+
+  function closeType(){
+
+    document
+      .getElementById('typeModal')
+      .classList.remove('active');
+
+    document.body.style.overflow = '';
+  }
+
+
+  /* FECHAR CLICANDO FORA */
+
+  function closeModalOutside(event){
+
+    if(event.target.id === 'typeModal'){
+      closeType();
+    }
+
+  }
+
+
+  /* FECHAR COM ESC */
+
+  document.addEventListener('keydown', function(event){
+
+    if(event.key === 'Escape'){
+      closeType();
+    }
+
+  });
+
 </script>
 
 </body>
-</html>
+  </html>
