@@ -656,6 +656,24 @@
       position:relative;
     }
 
+    .modal-back{
+      position:absolute;
+      top:15px;
+      left:15px;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.045);
+      color:#fff;
+      cursor:pointer;
+      font-size:1.35rem;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
     .modal-close{
       position:absolute;
       top:15px;
@@ -687,6 +705,10 @@
     .modal-box > p{
       color:var(--muted);
       margin-top:12px;
+    }
+
+    .modal-demo-image img{
+      transition:opacity .45s ease;
     }
 
     .modal-info{
@@ -2155,6 +2177,15 @@
   <div class="modal-box">
 
     <button
+      type="button"
+      class="modal-back"
+      onclick="closeType()"
+      aria-label="Voltar para os tipos de site"
+    >
+      ←
+    </button>
+
+    <button
       class="modal-close"
       onclick="closeType()"
       aria-label="Fechar"
@@ -2616,6 +2647,7 @@
 
     barbearia: {
       image: 'https://img.decoracaosimples.com.br/2026/decoracao-barbearia-moderna-7.jpg',
+      images: ['https://img.decoracaosimples.com.br/2026/decoracao-barbearia-moderna-7.jpg'],
       imageAlt: 'Exemplo visual de uma barbearia moderna',
       demoUrl: 'https://kings-barber-two.vercel.app/',
       plans: [
@@ -2627,6 +2659,7 @@
 
     restaurante: {
       image: 'https://grok-workspace-puce.vercel.app/images/hero.jpg',
+      images: ['https://grok-workspace-puce.vercel.app/images/hero.jpg','https://grok-workspace-puce.vercel.app/images/about.jpg','https://grok-workspace-puce.vercel.app/images/featured.jpg','https://grok-workspace-puce.vercel.app/images/gallery-salon.jpg'],
       imageAlt: 'Imagem do modelo Sabor & Brasa',
       demoUrl: 'https://grok-workspace-puce.vercel.app/',
       plans: [
@@ -2638,6 +2671,7 @@
 
     salao: {
       image: 'https://nexaweb-salao1.vercel.app/images/hero.jpg',
+      images: ['https://nexaweb-salao1.vercel.app/images/hero.jpg','https://nexaweb-salao1.vercel.app/images/intro.jpg','https://nexaweb-salao1.vercel.app/images/before.jpg','https://nexaweb-salao1.vercel.app/images/gallery-hair.jpg'],
       imageAlt: 'Imagem do modelo Ateliê Lumière',
       demoUrl: 'https://nexaweb-salao1.vercel.app/',
       plans: [
@@ -2649,6 +2683,7 @@
 
     academia: {
       image: 'https://nexaweb-academia.vercel.app/images/hero.jpg',
+      images: ['https://nexaweb-academia.vercel.app/images/hero.jpg','https://nexaweb-academia.vercel.app/images/about.jpg','https://nexaweb-academia.vercel.app/images/train-musculacao.jpg','https://nexaweb-academia.vercel.app/images/train-funcional.jpg'],
       imageAlt: 'Imagem do modelo KINETIK Training Club',
       demoUrl: 'https://nexaweb-academia.vercel.app/',
       plans: [
@@ -2660,6 +2695,7 @@
 
     clinica: {
       image: 'https://grok-workspace-1-three-alpha.vercel.app/images/hero.jpg',
+      images: ['https://grok-workspace-1-three-alpha.vercel.app/images/hero.jpg','https://grok-workspace-1-three-alpha.vercel.app/images/about.jpg','https://grok-workspace-1-three-alpha.vercel.app/images/recepcao.jpg','https://grok-workspace-1-three-alpha.vercel.app/images/consultorio.jpg'],
       imageAlt: 'Imagem do modelo Clínica Auren',
       demoUrl: 'https://grok-workspace-1-three-alpha.vercel.app/',
       plans: [
@@ -2671,6 +2707,7 @@
 
     loja: {
       image: 'https://nexaweb-loja.vercel.app/images/hero.jpg',
+      images: ['https://nexaweb-loja.vercel.app/images/hero.jpg','https://nexaweb-loja.vercel.app/images/prod-poltrona.jpg'],
       imageAlt: 'Imagem do modelo Nexa Store',
       demoUrl: 'https://nexaweb-loja.vercel.app/',
       plans: [
@@ -2682,6 +2719,7 @@
 
     imobiliaria: {
       image: 'https://nexaweb-imobiliaria.vercel.app/images/hero.jpg',
+      images: ['https://nexaweb-imobiliaria.vercel.app/images/hero.jpg','https://nexaweb-imobiliaria.vercel.app/images/aurora.jpg','https://nexaweb-imobiliaria.vercel.app/images/horizonte.jpg','https://nexaweb-imobiliaria.vercel.app/images/lumen.jpg'],
       imageAlt: 'Imagem do modelo VivaLar Imóveis',
       demoUrl: 'https://nexaweb-imobiliaria.vercel.app/',
       plans: [
@@ -2693,6 +2731,7 @@
 
     prestador: {
       image: 'https://nexaweb-prestador.vercel.app/images/hero-eletrica.jpg',
+      images: ['https://nexaweb-prestador.vercel.app/images/hero-eletrica.jpg','https://nexaweb-prestador.vercel.app/images/featured-reforma.jpg','https://nexaweb-prestador.vercel.app/images/projeto-residencial.jpg','https://nexaweb-prestador.vercel.app/images/projeto-eletrica.jpg'],
       imageAlt: 'Imagem do modelo NOVA PRIME',
       demoUrl: 'https://nexaweb-prestador.vercel.app/',
       plans: [
@@ -2704,6 +2743,7 @@
 
     portfolio: {
       image: 'https://nexaweb-portfolio-lake.vercel.app/images/portrait.jpg',
+      images: ['https://nexaweb-portfolio-lake.vercel.app/images/portrait.jpg','https://nexaweb-portfolio-lake.vercel.app/images/orbit-featured.jpg','https://nexaweb-portfolio-lake.vercel.app/images/atelier.jpg'],
       imageAlt: 'Imagem do modelo Rafael Monteiro',
       demoUrl: 'https://nexaweb-portfolio-lake.vercel.app/',
       plans: [
@@ -2715,6 +2755,7 @@
 
     landing: {
       image: '',
+      images: [],
       imageAlt: 'Ainda não há modelo demonstrativo de Landing Page',
       demoUrl: '',
       plans: [
@@ -3268,6 +3309,44 @@
 
   /* ABRIR MODELO */
 
+  let modalSlideTimer = null;
+  let modalSlideImages = [];
+  let modalSlideIndex = 0;
+
+  function stopModalSlideshow(){
+    if(modalSlideTimer){
+      clearInterval(modalSlideTimer);
+      modalSlideTimer = null;
+    }
+  }
+
+  function startModalSlideshow(images, image, fallback){
+    stopModalSlideshow();
+    modalSlideImages = Array.isArray(images) ? images.filter(Boolean) : [];
+    modalSlideIndex = 0;
+
+    if(modalSlideImages.length <= 1){
+      return;
+    }
+
+    modalSlideTimer = setInterval(function(){
+      if(!document.getElementById('typeModal').classList.contains('active')){
+        stopModalSlideshow();
+        return;
+      }
+
+      modalSlideIndex = (modalSlideIndex + 1) % modalSlideImages.length;
+      image.style.opacity = '0';
+
+      setTimeout(function(){
+        if(!document.getElementById('typeModal').classList.contains('active')){
+          return;
+        }
+        image.src = modalSlideImages[modalSlideIndex];
+      }, 220);
+    }, 3500);
+  }
+
   function openType(type){
 
     const data = typeData[type];
@@ -3303,6 +3382,7 @@
 
     image.onload = function(){
       image.style.display = 'block';
+      image.style.opacity = '1';
       fallback.style.display = 'none';
     };
 
@@ -3311,12 +3391,17 @@
       fallback.style.display = 'grid';
     };
 
+    stopModalSlideshow();
+
     if(pricing.image){
-      image.src = pricing.image;
+      const slideImages = pricing.images && pricing.images.length ? pricing.images : [pricing.image];
+      image.src = slideImages[0];
       image.alt = pricing.imageAlt;
+      image.style.opacity = '1';
       image.style.display = 'block';
       fallback.style.display = 'none';
       imageBox.style.display = 'block';
+      startModalSlideshow(slideImages, image, fallback);
     }else{
       image.removeAttribute('src');
       image.style.display = 'none';
@@ -3364,6 +3449,8 @@
   /* FECHAR MODELO */
 
   function closeType(keepPageLocked = false){
+
+    stopModalSlideshow();
 
     document
       .getElementById('typeModal')
