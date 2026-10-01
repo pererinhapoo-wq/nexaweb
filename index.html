@@ -656,24 +656,6 @@
       position:relative;
     }
 
-    .modal-back{
-      position:absolute;
-      top:15px;
-      left:15px;
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.045);
-      color:#fff;
-      cursor:pointer;
-      font-size:1.35rem;
-      line-height:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
     .modal-close{
       position:absolute;
       top:15px;
@@ -743,7 +725,36 @@
       font-weight:800;
     }
 
-    .modal-action{
+        .type-action-row{
+      display:flex;
+      gap:10px;
+      width:100%;
+      margin-top:10px;
+      align-items:stretch;
+    }
+
+    .type-back-inline{
+      width:52px;
+      min-width:52px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:12px;
+      background:rgba(255,255,255,.045);
+      color:#fff;
+      cursor:pointer;
+      font-size:1.35rem;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .type-briefing-button{
+      margin-top:0 !important;
+      flex:1;
+      width:auto !important;
+    }
+
+.modal-action{
       margin-top:26px;
     }
 
@@ -2177,15 +2188,6 @@
   <div class="modal-box">
 
     <button
-      type="button"
-      class="modal-back"
-      onclick="closeType()"
-      aria-label="Voltar para os tipos de site"
-    >
-      ←
-    </button>
-
-    <button
       class="modal-close"
       onclick="closeType()"
       aria-label="Fechar"
@@ -2229,15 +2231,25 @@
         Ver site completo ↗
       </a>
 
-      <button
-        type="button"
-        class="btn btn-primary"
-        id="typeBriefingButton"
-        onclick="openBriefingFromType()"
-        style="margin-top:10px;width:100%"
-      >
-        Quero este tipo de site
-      </button>
+      <div class="type-action-row">
+        <button
+          type="button"
+          class="type-back-inline"
+          onclick="closeType()"
+          aria-label="Voltar para os tipos de site"
+        >
+          ←
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary type-briefing-button"
+          id="typeBriefingButton"
+          onclick="openBriefingFromType()"
+        >
+          Quero este tipo de site
+        </button>
+      </div>
     </div>
 
   </div>
@@ -3344,7 +3356,7 @@
         }
         image.src = modalSlideImages[modalSlideIndex];
       }, 220);
-    }, 3500);
+    }, 6000);
   }
 
   function openType(type){
